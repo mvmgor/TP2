@@ -1,4 +1,5 @@
 package src;
+
 /**
  * TP2 - 420-111 (A24)
  * Classe principale qui gère le flux du programme de gestion de scolarité, incluant la navigation dans le menu
@@ -68,6 +69,43 @@ public class App {
      */
     public static void appliquerOption(int option) throws NombreEtudiantsDepasseCapaciteException, SommePonderationsInvalideException {
         // TODO : à implémenter
+        switch (option){
+            case 1:
+                creerClasseEtudiants();
+                break;
+            case 2:
+                creerGrilleEvaluation();
+                break;
+            case 3:
+                afficherListeEtudiants();
+                break;
+            case 4:
+                afficherListeEvals();
+                break;
+            case 5:
+                entrerResultats();
+                break;
+            case 6:
+                calculerResultats();
+                break;
+            case 7:
+                afficherResultats();
+                break;
+            case 8:
+                afficherStatistiques();
+                break;
+            case 9:
+                trierResultats();
+                break;
+            case 10:
+                creerRapportResultats();
+                break;
+            case 11:
+                quitterProgramme();
+                break;
+            default:
+                System.out.println("Option Invalide!");
+        }
     }
 
     /////////////////////////////////////////////////////////////

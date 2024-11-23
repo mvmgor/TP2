@@ -27,7 +27,21 @@ public class Validations {
      */
     public static int validerNombre(String message, int borneInf, int borneSup) {
         // TODO : à implémenter
-        return 0;
+        try {
+            System.out.println(message);
+            int option = sc.nextInt();
+            if( option < borneInf || option > borneSup) {
+                System.out.println(Utilitaire.MSG_ERR_OPTION_INVALIDE);
+                return 0;
+            }
+            else{
+                return option;
+            }
+        } catch(InputMismatchException e){
+            System.out.println(Utilitaire.MSG_ERR_SAISIE_NUMERIQUE);
+            sc.next();
+            return 0;
+        }
     }
 
     /**

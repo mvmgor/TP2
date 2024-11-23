@@ -66,6 +66,7 @@ public class App {
      * @param option Numéro de l'option choisie.
      * @throws NombreEtudiantsDepasseCapaciteException Si une exception liée au nombre d'étudiants est levée.
      * @throws SommePonderationsInvalideException      Si une exception liée à la somme des évaluations est levée.
+     * @Method Done.
      */
     public static void appliquerOption(int option) throws NombreEtudiantsDepasseCapaciteException, SommePonderationsInvalideException {
         // TODO : à implémenter
@@ -104,7 +105,6 @@ public class App {
                 quitterProgramme();
                 break;
             default:
-                System.out.println("Option Invalide!");
         }
     }
 

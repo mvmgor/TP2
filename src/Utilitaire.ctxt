@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Utilitaire
+comment0.text=\r\n\ TP2\ -\ 420-111\ (A24)\r\n\r\n\ Classe\ utilitaire\ contenant\ des\ constantes\ et\ des\ m\u00E9thodes\ g\u00E9n\u00E9rales\ utilis\u00E9es\r\n\ dans\ le\ programme,\ comme\ la\ g\u00E9n\u00E9ration\ de\ codes\ \u00E9tudiants.\r\n\r\n\ @author\ Sara\ Boumehraz\r\n\ @version\ 18/11/2024\r\n\r\n\ [Votre\ nom\ et\ pr\u00E9nom]\r\n\ [Votre\ numDA]\r\n
+comment1.params=nom\ prenom
+comment1.target=java.lang.String\ genererCodeEtudiant(java.lang.String,\ java.lang.String)
+comment1.text=\r\n\ G\u00E9n\u00E8re\ un\ code\ unique\ pour\ un\ \u00E9tudiant\ \u00E0\ partir\ de\ son\ nom\ et\ pr\u00E9nom.\r\n\r\n\ @param\ nom\ \ \ \ Le\ nom\ de\ l'\u00E9tudiant.\r\n\ @param\ prenom\ Le\ pr\u00E9nom\ de\ l'\u00E9tudiant.\r\n\ @return\ Le\ code\ unique\ g\u00E9n\u00E9r\u00E9\ pour\ l'\u00E9tudiant.\r\n
+comment2.params=notes\ colonne
+comment2.target=float[]\ extraireColonne(float[][],\ int)
+comment2.text=\r\n\ Extrait\ une\ colonne\ sp\u00E9cifique\ d'un\ tableau\ 2D\ de\ notes\ en\ un\ tableau\ 1D.\r\n\r\n\ @param\ notes\ \ \ Tableau\ 2D\ contenant\ les\ notes\ des\ \u00E9tudiants.\r\n\ @param\ colonne\ Indice\ de\ la\ colonne\ \u00E0\ extraire.\r\n\ @return\ Un\ tableau\ contenant\ les\ valeurs\ de\ la\ colonne\ extraite.\r\n
+comment3.params=liste
+comment3.target=java.lang.String\ afficherElementsListeSurUneLigne(java.lang.String[])
+comment3.text=\r\n\ Concat\u00E8ne\ les\ \u00E9l\u00E9ments\ d'une\ liste\ en\ une\ seule\ ligne\ s\u00E9par\u00E9e\ par\ des\ virgules.\r\n\r\n\ @param\ liste\ Liste\ des\ cha\u00EEnes\ \u00E0\ concat\u00E9ner.\r\n\ @return\ Une\ cha\u00EEne\ contenant\ les\ \u00E9l\u00E9ments\ de\ la\ liste\ s\u00E9par\u00E9s\ par\ des\ espaces.\r\n
+comment4.params=liste
+comment4.target=float[]\ parseStringListToFloatList(java.lang.String[])
+comment4.text=\r\n\ Convertit\ une\ liste\ de\ cha\u00EEnes\ en\ une\ liste\ de\ nombres\ flottants.\r\n\r\n\ @param\ liste\ Liste\ des\ cha\u00EEnes\ repr\u00E9sentant\ des\ nombres.\r\n\ @return\ Un\ tableau\ de\ nombres\ flottants\ correspondant\ aux\ cha\u00EEnes\ d'entr\u00E9e.\r\n\ @throws\ NumberFormatException\ Si\ une\ cha\u00EEne\ ne\ peut\ pas\ \u00EAtre\ convertie\ en\ nombre.\r\n
+comment5.params=etudiants\ posEtudiant
+comment5.target=java.lang.String\ recupererNomComplet(java.lang.String[][],\ int)
+comment5.text=\r\n\ Construit\ le\ nom\ complet\ d'un\ \u00E9tudiant\ \u00E0\ partir\ des\ informations\ stock\u00E9es.\r\n\r\n\ @param\ etudiants\ \ \ Tableau\ contenant\ les\ informations\ des\ \u00E9tudiants.\r\n\ @param\ posEtudiant\ Indice\ de\ l'\u00E9tudiant\ dans\ le\ tableau.\r\n\ @return\ Une\ cha\u00EEne\ repr\u00E9sentant\ le\ nom\ complet\ de\ l'\u00E9tudiant.\r\n
+comment6.params=entete\ donnees
+comment6.target=java.lang.String\ assemblerTableau(java.lang.String,\ java.lang.String)
+comment6.text=\r\n\ Assemble\ un\ tableau\ format\u00E9\ \u00E0\ partir\ de\ l'ent\u00EAte\ et\ des\ donn\u00E9es\ fournies.\r\n\r\n\ @param\ entete\ \ L'ent\u00EAte\ du\ tableau.\r\n\ @param\ donnees\ Les\ donn\u00E9es\ du\ tableau.\r\n\ @return\ Une\ cha\u00EEne\ repr\u00E9sentant\ le\ tableau\ assembl\u00E9.\r\n
+comment7.params=nomFichier\ contenu
+comment7.target=void\ ecrireDansFichier(java.lang.String,\ java.lang.String)
+comment7.text=\r\n\ Permet\ d'\u00E9crire\ un\ contenu\ dans\ un\ fichier\r\n\r\n\ @param\ nomFichier\ Le\ chemin\ vers\ le\ fichier\ dans\ lequel\ on\ veut\ \u00E9crire\r\n\ @param\ contenu\ \ \ \ Le\ contenu\ qu'on\ va\ mettre\ dans\ le\ fichier\r\n
+numComments=8

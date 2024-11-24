@@ -24,7 +24,14 @@ public class Validations {
      * @param borneInf Borne inférieure de la plage.
      * @param borneSup Borne supérieure de la plage.
      * @return Le nombre valide saisi par l'utilisateur.
+     *
+     *@Implementation d'un try catch due la possibilite d'une entrer autre qu'un entier.
+     * Verifie si option se trouve a l'exterieur du ranger permis.Si oui return option
+     * Sinon affiche un message d'erreur et retourne 0 comme valeur par defaut
+     *
      */
+
+
     public static int validerNombre(String message, int borneInf, int borneSup) {
         // TODO : à implémenter
         try {
@@ -52,7 +59,24 @@ public class Validations {
      */
     public static int validerNbrEtudiants() throws NombreEtudiantsDepasseCapaciteException {
         // TODO : à implémenter
-        return 0;
+        int nbEtudiant = 0;
+        do {
+            try{
+                System.out.println(Utilitaire.MSG_SAISIE_NBR_ETUDIANTS);
+                nbEtudiant = sc.nextInt();
+                if(nbEtudiant > Utilitaire.CAPACITE_MAX_CLASSE) { // Superieur a 30.
+                    throw new NombreEtudiantsDepasseCapaciteException(); // **Needs to end program**
+                } else if (nbEtudiant < Utilitaire.CAPACITE_MIN_CLASSE ) {
+                    System.out.println(Utilitaire.MSG_ERR_NBR_INF_CAPACITE_MIN_CLASSE);
+                    nbEtudiant = 0;
+                }
+            }catch (InputMismatchException e){
+                System.out.println(Utilitaire.MSG_ERR_SAISIE_NUMERIQUE);
+            }
+
+        }while(nbEtudiant == 0);
+
+        return nbEtudiant;
     }
 
     /**
@@ -63,6 +87,7 @@ public class Validations {
      */
     public static String validerNomEval(int numEval) {
         // TODO : à implémenter
+
         return null;
     }
 

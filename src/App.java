@@ -66,7 +66,7 @@ public class App {
      * @param option Numéro de l'option choisie.
      * @throws NombreEtudiantsDepasseCapaciteException Si une exception liée au nombre d'étudiants est levée.
      * @throws SommePonderationsInvalideException      Si une exception liée à la somme des évaluations est levée.
-     * @Method Done.
+     * @Implementation d'un switch case qui redirige vers les methodes designe selon l'option choisie.
      */
     public static void appliquerOption(int option) throws NombreEtudiantsDepasseCapaciteException, SommePonderationsInvalideException {
         // TODO : à implémenter

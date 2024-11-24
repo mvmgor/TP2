@@ -221,6 +221,7 @@ public class App {
      */
     private static void quitterProgramme() {
         // TODO : à implémenter
+        System.out.println(Utilitaire.MSG_QUITTER_PROGRAMME);
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -269,6 +270,7 @@ public class App {
      */
     private static void entrerNomsEtudiants() {
         // TODO : à implémenter
+        System.out.println();
     }
 
     /**

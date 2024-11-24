@@ -72,6 +72,7 @@ public class Validations {
                 }
             }catch (InputMismatchException e){
                 System.out.println(Utilitaire.MSG_ERR_SAISIE_NUMERIQUE);
+                sc.next();
             }
 
         }while(nbEtudiant == 0);

@@ -61,7 +61,7 @@ public class Validations {
         // TODO : à implémenter
         int nbEtudiant = 0;
         do {
-            try{
+            try {
                 System.out.println(Utilitaire.MSG_SAISIE_NBR_ETUDIANTS);
                 nbEtudiant = sc.nextInt();
                 if(nbEtudiant > Utilitaire.CAPACITE_MAX_CLASSE) { // Superieur a 30.
@@ -70,12 +70,12 @@ public class Validations {
                     System.out.println(Utilitaire.MSG_ERR_NBR_INF_CAPACITE_MIN_CLASSE);
                     nbEtudiant = 0;
                 }
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e){
                 System.out.println(Utilitaire.MSG_ERR_SAISIE_NUMERIQUE);
                 sc.next();
             }
 
-        }while(nbEtudiant == 0);
+        } while(nbEtudiant == 0);
 
         return nbEtudiant;
     }

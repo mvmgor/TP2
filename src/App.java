@@ -1,4 +1,6 @@
 package src;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * TP2 - 420-111 (A24)
@@ -12,6 +14,7 @@ package src;
  * [Votre numDA]
  */
 public class App {
+    static Scanner sc = new Scanner(System.in);
     // Les variables de classe (statiques)
     private static int nbrEtudiants;
     private static float[][] notes;
@@ -57,6 +60,7 @@ public class App {
             Utilitaire.DERNIERE_OPTION);
             appliquerOption(option);
         } while (option != Utilitaire.DERNIERE_OPTION);
+
 
     }
 
@@ -132,6 +136,24 @@ public class App {
      */
     private static void creerGrilleEvaluation() throws SommePonderationsInvalideException {
         // TODO : à implémenter
+        nbrEvals =0;
+        do {
+            try {
+                System.out.println(Utilitaire.MSG_SAISI_NBR_EVALS);
+                nbrEvals = sc.nextInt();
+                if (nbrEvals < Utilitaire.MIN_NBR_EVALS || nbrEvals > Utilitaire.MAX_NBR_EVALS) {
+                    System.out.println(Utilitaire.MSG_ERR_OPTION_INVALIDE);
+                    nbrEvals = 0;
+                } else {
+                    evals = new String[nbrEvals];
+                }
+            } catch(InputMismatchException e){
+                System.out.println(Utilitaire.MSG_ERR_SAISIE_NUMERIQUE);
+                sc.next();
+            }
+        }while (nbrEvals == 0) ;
+        // validation nom d'eval et entrer des noms dans le tableaux
+
     }
 
     /**
@@ -222,6 +244,8 @@ public class App {
     private static void quitterProgramme() {
         // TODO : à implémenter
         System.out.println(Utilitaire.MSG_QUITTER_PROGRAMME);
+        sc.close();
+
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -270,7 +294,12 @@ public class App {
      */
     private static void entrerNomsEtudiants() {
         // TODO : à implémenter
-        System.out.println();
+        int i;
+        String nom = "";
+        for(i = 0; i == nbrEtudiants; i++){
+            System.out.println(Utilitaire.MSG_SAISIE_NOM_ETUDIANT);
+            nom = sc.nextLine();
+        }
     }
 
     /**
@@ -299,7 +328,6 @@ public class App {
 
         return resultats;
     }
-
     /**
      * Sauvegarde les statistiques calculées des résultats puis les afficher.
      *

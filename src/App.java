@@ -16,7 +16,6 @@ import java.util.Scanner;
  * [Votre numDA]
  */
 public class App {
-    static Scanner sc = new Scanner(System.in);
     // Les variables de classe (statiques)
     private static int nbrEtudiants;
     private static float[][] notes;
@@ -233,7 +232,6 @@ public class App {
     private static void quitterProgramme() {
         // TODO : à implémenter
         System.out.println(Utilitaire.MSG_QUITTER_PROGRAMME);
-        sc.close();
 
     }
 
@@ -283,6 +281,7 @@ public class App {
      */
     private static void entrerNomsEtudiants() {
         // TODO : à implémenter
+
 
 
     }

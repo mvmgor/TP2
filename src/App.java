@@ -19,16 +19,16 @@ public class App {
     private static int nbrEtudiants;
     private static float[][] notes;
     private static int nbrEvals;
-    private static String[][] etudiants;
-    private static String[] evals;
+    private static String[][] etudiants; //[0.nom 1.prenom 2.codePermanant] [nbrEtudiant]
+    private static String[] evals; // nom des evaluation selon le nb d'evaluation entrer
     private static int[] ponderations;
     private static float[] moyenneEvals;
     private static float[] moyenneEtudiants;
     private static float moyenneClasse;
-    private static float[] notesPlusFortesEtudiants;
-    private static float[] notesPlusFaiblesEtudiants;
-    private static float[] notesPlusFortesEvals;
-    private static float[] notesPlusFaiblesEvals;
+    private static float[] notesPlusFortesEtudiants; // par etudiants
+    private static float[] notesPlusFaiblesEtudiants;// par etudiant
+    private static float[] notesPlusFortesEvals; // par evaluation
+    private static float[] notesPlusFaiblesEvals; // par evalutation
     private static String stats;
     private static int nbrEtudiantsSucces;
 

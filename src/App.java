@@ -1,4 +1,6 @@
 package src;
+import jdk.jshell.execution.Util;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -136,22 +138,8 @@ public class App {
      */
     private static void creerGrilleEvaluation() throws SommePonderationsInvalideException {
         // TODO : à implémenter
-        nbrEvals =0;
-        do {
-            try {
-                System.out.println(Utilitaire.MSG_SAISI_NBR_EVALS);
-                nbrEvals = sc.nextInt();
-                if (nbrEvals < Utilitaire.MIN_NBR_EVALS || nbrEvals > Utilitaire.MAX_NBR_EVALS) {
-                    System.out.println(Utilitaire.MSG_ERR_OPTION_INVALIDE);
-                    nbrEvals = 0;
-                } else {
-                    evals = new String[nbrEvals];
-                }
-            } catch(InputMismatchException e){
-                System.out.println(Utilitaire.MSG_ERR_SAISIE_NUMERIQUE);
-                sc.next();
-            }
-        }while (nbrEvals == 0) ;
+        nbrEvals = Validations.validerNombre(Utilitaire.MSG_ENTRER_NUM_EVAL,Utilitaire.MIN_NBR_EVALS, Utilitaire.MAX_NBR_EVALS);
+
         // validation nom d'eval et entrer des noms dans le tableaux
 
     }
@@ -294,12 +282,7 @@ public class App {
      */
     private static void entrerNomsEtudiants() {
         // TODO : à implémenter
-        int i;
-        String nom = "";
-        for(i = 0; i == nbrEtudiants; i++){
-            System.out.println(Utilitaire.MSG_SAISIE_NOM_ETUDIANT);
-            nom = sc.nextLine();
-        }
+
     }
 
     /**

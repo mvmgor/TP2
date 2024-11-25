@@ -36,13 +36,13 @@ public class Validations {
         // TODO : à implémenter
         try {
             System.out.println(message);
-            int option = sc.nextInt();
-            if( option < borneInf || option > borneSup) {
+            int nombre = sc.nextInt();
+            if( nombre < borneInf || nombre > borneSup) {
                 System.out.println(Utilitaire.MSG_ERR_OPTION_INVALIDE);
                 return 0;
             }
             else{
-                return option;
+                return nombre;
             }
         } catch(InputMismatchException e){
             System.out.println(Utilitaire.MSG_ERR_SAISIE_NUMERIQUE);
@@ -64,7 +64,7 @@ public class Validations {
             try {
                 System.out.println(Utilitaire.MSG_SAISIE_NBR_ETUDIANTS);
                 nbEtudiant = sc.nextInt();
-                if(nbEtudiant > Utilitaire.CAPACITE_MAX_CLASSE) { // Superieur a 30.
+                if(nbEtudiant > Utilitaire.CAPACITE_MAX_CLASSE) {
                     throw new NombreEtudiantsDepasseCapaciteException(); // **Needs to end program**
                 } else if (nbEtudiant < Utilitaire.CAPACITE_MIN_CLASSE ) {
                     System.out.println(Utilitaire.MSG_ERR_NBR_INF_CAPACITE_MIN_CLASSE);

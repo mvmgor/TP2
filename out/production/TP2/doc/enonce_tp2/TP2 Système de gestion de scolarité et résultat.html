@@ -1,0 +1,1685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>TP2 : Système de gestion de scolarité et résultats</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="13b45eb1-bdf8-802a-b8f3-c6df9a9618e0" class="page sans"><header><h1 class="page-title">TP2 : <strong>Système de gestion de scolarité et résultats</strong></h1><p class="page-description"></p></header><div class="page-body"><h1 id="14245eb1-bdf8-80e1-a947-e042244ea15b" class="">Introduction à la programmation </h1><h3 id="13b45eb1-bdf8-80d7-b3fb-d47cf515bf5b" class=""><strong>Objectif :</strong></h3><p id="13b45eb1-bdf8-8034-a584-f168d648892b" class="">L’objectif de ce travail pratique est de concevoir un système de gestion de scolarité en Java. Le système gère une liste d&#x27;étudiants, leurs notes dans différentes matières, et génère des statistiques sur leurs résultats. Toutes les fonctions devront être écrites en se limitant aux méthodes statiques, chaînes de caractères, et tableaux statiques et les concepts vus en classe.</p><p id="14245eb1-bdf8-8027-b061-d21f15f01824" class="">L&#x27;objectif est de créer un système qui permet de :</p><ul id="14245eb1-bdf8-80cd-969d-ff594d084176" class="bulleted-list"><li style="list-style-type:disc">Gérer les données des étudiants (noms, prénoms, codes étudiants).</li></ul><ul id="14245eb1-bdf8-8015-964f-d11c1fc6af58" class="bulleted-list"><li style="list-style-type:disc">Gérer les évaluations (noms, pondérations).</li></ul><ul id="14245eb1-bdf8-80d6-ba46-fad54e4a78f8" class="bulleted-list"><li style="list-style-type:disc">Calculer et afficher des statistiques sur les résultats.</li></ul><ul id="14245eb1-bdf8-80b9-82ab-e0bf15e40c1d" class="bulleted-list"><li style="list-style-type:disc">Générer des rapports sous forme de tableaux formatés.</li></ul><h3 id="14245eb1-bdf8-80aa-97ec-e4ae530f4867" class=""><strong>Contexte</strong></h3><p id="14245eb1-bdf8-8028-b231-cf5bcf3ace9b" class="">Vous êtes en charge de concevoir un programme pour un établissement scolaire afin de simplifier la gestion des étudiants et des évaluations. Le système doit être capable de :</p><ol type="1" id="14245eb1-bdf8-809b-be69-e215fed0073b" class="numbered-list" start="1"><li>Enregistrer les informations des étudiants et des évaluations.</li></ol><ol type="1" id="14245eb1-bdf8-8054-bd1b-f2caf77ceb1e" class="numbered-list" start="2"><li>Saisir et valider les résultats.</li></ol><ol type="1" id="14245eb1-bdf8-8038-9d19-e38950ec292c" class="numbered-list" start="3"><li>Calculer des statistiques pour chaque étudiant et pour chaque évaluation.</li></ol><ol type="1" id="14245eb1-bdf8-807a-bb4a-e0864468ff0b" class="numbered-list" start="4"><li>Exporter les résultats et statistiques sous forme de rapports.</li></ol><h2 id="13b45eb1-bdf8-803a-b29f-c5df2a18bd5a" class="">Fonctionnalités du programme </h2><p id="13b45eb1-bdf8-8046-9c36-ff121f8b35f5" class="">Le programme affiche un menu qui permet d’accéder à plusieurs fonctionnalités. Le menu se réaffiche après chaque option exécutée sauf pour les cas ou on termine le programme (affiche : Au revoir!), indiquées plus bas :</p><p id="14345eb1-bdf8-8083-92a7-fdb3c14900b7" class="">Lors du choix de l’option, il faut valider le nombre saisi et gérer le cas d’un caractère non numérique pour le choix de l’option : </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-80f6-9541-f894ff997fa3" class="code"><code class="language-Plain Text">Système de gestion de scolarité et résultats du cours 420-111
+
+
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+-5
+Option invalide!
+
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+K
+Erreur de saisie! 
+
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+12
+Option invalide!
+</code></pre><p id="14345eb1-bdf8-804f-8cfa-d8ec8b8a7cf5" class="">L’exécution de certaines options est requises avant d’autres options :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-8041-a549-e148bcdeeabb" class="code"><code class="language-Plain Text">Système de gestion de scolarité et résultats du cours 420-111
+
+
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+10
+Assurer vous que vous avez créé une classe (option 1) et sa grille d&#x27;évaluation (option 2) avant. L&#x27;option 3 vous permet de vérifier si une classe a été déjà créée et l&#x27;option 4 vous permet de vérifier si une grille d&#x27;évaluation a été déjà créée pour cette classe.
+
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+9
+Assurer vous que vous avez créé une classe (option 1) et sa grille d&#x27;évaluation (option 2) avant. 
+L&#x27;option 3 vous permet de vérifier si une classe a été déjà créée. 
+L&#x27;option 4 vous permet de vérifier si une grille d&#x27;évaluation a été déjà créée pour cette classe.
+
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+8
+Assurer vous que vous avez créé une classe (option 1) et sa grille d&#x27;évaluation (option 2) avant. 
+L&#x27;option 3 vous permet de vérifier si une classe a été déjà créée. 
+L&#x27;option 4 vous permet de vérifier si une grille d&#x27;évaluation a été déjà créée pour cette classe.
+
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+7
+Assurer vous que vous avez créé une classe (option 1) et sa grille d&#x27;évaluation (option 2) avant. 
+L&#x27;option 3 vous permet de vérifier si une classe a été déjà créée. 
+L&#x27;option 4 vous permet de vérifier si une grille d&#x27;évaluation a été déjà créée pour cette classe.
+
+=========================================
+			Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+6
+Assurer vous que vous avez créé une classe (option 1) et sa grille d&#x27;évaluation (option 2) avant. 
+L&#x27;option 3 vous permet de vérifier si une classe a été déjà créée. 
+L&#x27;option 4 vous permet de vérifier si une grille d&#x27;évaluation a été déjà créée pour cette classe.
+
+=========================================
+			Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+5
+Assurer vous que vous avez créé une classe (option 1) et sa grille d&#x27;évaluation (option 2) avant. 
+L&#x27;option 3 vous permet de vérifier si une classe a été déjà créée. 
+L&#x27;option 4 vous permet de vérifier si une grille d&#x27;évaluation a été déjà créée pour cette classe.
+
+=========================================
+			Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+4
+Aucun etudiant! Pour créer une classe et lui ajouter des étudiants, il faut d&#x27;abord choisir l&#x27;option 1.
+
+=========================================
+			Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+3
+Aucun etudiant! Pour créer une classe et lui ajouter des étudiants, il faut d&#x27;abord choisir l&#x27;option 1.
+
+=========================================
+			Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+2
+Entrez le nombre d’évaluations : </code></pre><h3 id="13b45eb1-bdf8-8077-b4b4-cb3016da2941" class="">Option 1 : Créer une classe d’étudiants</h3><p id="13b45eb1-bdf8-80c2-aceb-f9c4f862b351" class="">Cette option permet à l’enseignant(e) d’entrer le nombre des étudiants de sa classe qui ne devrait pas dépasser la capacité maximale qu’une classe fixée à 30. Sinon le programme doit lever (provoquer) une exception de type <code>NombreEtudiantsDepasseCapaciteException</code> (la classe de l’exception personnalisée est fournie). Le message de l’exception s’affiche et le programme s’arrête normalement.</p><ul id="14245eb1-bdf8-8090-8187-d8c4789c9b1d" class="bulleted-list"><li style="list-style-type:disc">Exécution du programme provoquant l’exception :<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-80b4-9014-f2cefcb97af0" class="code"><code class="language-Plain Text">Système de gestion de scolarité et résultats du cours 420-111
+
+
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+1
+Entrez le nombre d’étudiants : 48
+Le nombre des étudiants dépasse la capacité de la classe.
+Au revoir!</code></pre></li></ul><p id="14245eb1-bdf8-807e-907f-f7dba681d4f2" class="">Si le nombre d’étudiants est valide et ne dépasse pas la capacité maximale qu’une classe peut contenir, on crée :</p><ul id="13b45eb1-bdf8-801d-80c1-ecd0d28b5c8d" class="bulleted-list"><li style="list-style-type:disc">Un tableau statique de deux dimensions de chaine de caractères pour contenir les noms des étudiants.<ul id="13b45eb1-bdf8-8069-a4da-d6df7941d73e" class="bulleted-list"><li style="list-style-type:circle">La première ligne contient le nom de famille de l’étudiant.</li></ul><ul id="13b45eb1-bdf8-801a-8fe5-fa336a4873ae" class="bulleted-list"><li style="list-style-type:circle">La deuxième ligne contient le prénom de l’étudiant.</li></ul><ul id="13b45eb1-bdf8-8091-8654-e8ea2e7a375e" class="bulleted-list"><li style="list-style-type:circle">La troisième ligne contient un code de 9 caractères : <ul id="13b45eb1-bdf8-8037-a31e-fc794ca82b95" class="bulleted-list"><li style="list-style-type:square">Les 3 premiers caractères se sont les 3 lettres du nom de famille de l’étudiant.</li></ul><ul id="13b45eb1-bdf8-8018-97d0-cc740554ab8d" class="bulleted-list"><li style="list-style-type:square">Le 4ème caractère c’est la première lettre du prénom de l’étudiant.</li></ul><ul id="13b45eb1-bdf8-8063-a99e-d98359e0d80b" class="bulleted-list"><li style="list-style-type:square">les 5 derniers caractères sont des nombres aléatoires.</li></ul></li></ul></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-80cd-874e-c4c89f34f9b2" class="code"><code class="language-Plain Text">Système de gestion de scolarité et résultats du cours 420-111
+
+
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+1
+Entrez le nombre d’étudiants : 3
+Veuillez saisir le nom et le prénom de l&#x27;étudiant 1 séparés par &#x27;_&#x27; : Pitre_Vincent
+Veuillez saisir le nom et le prénom de l&#x27;étudiant 2 séparés par &#x27;_&#x27; : Martale_Alain
+Veuillez saisir le nom et le prénom de l&#x27;étudiant 3 séparés par &#x27;_&#x27; : Pourtre_Nissa</code></pre><p id="14345eb1-bdf8-8020-b82f-d431c942b816" class="">Le nombre d’étudiants devrait être validé pour accepter les valeurs numériques positives : </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-8012-a4ca-d61125462a80" class="code"><code class="language-Plain Text">Système de gestion de scolarité et résultats du cours 420-111
+
+
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+1
+Entrez le nombre d’étudiants (entre 1 et 30) : -5
+Le nombre des étudiants ne peut pas être inférieur ou égal à 0.
+Entrez le nombre d’étudiants (entre 1 et 30) : k
+Erreur de saisie! Entrez le nombre d’étudiants (entre 1 et 30) : 0
+Le nombre des étudiants ne peut pas être inférieur ou égal à 0.</code></pre><h3 id="13b45eb1-bdf8-80e6-8f46-ceaaf769b254" class="">Options 2 : Créer une grille d’évaluation</h3><ul id="13b45eb1-bdf8-807a-b123-d01b9eda56ca" class="bulleted-list"><li style="list-style-type:disc">Un tableau statique  de chaine de caractères pour contenir les noms des évaluations du cours.</li></ul><ul id="13b45eb1-bdf8-8044-a768-e993be2ebbee" class="bulleted-list"><li style="list-style-type:disc">Un tableau statique  d’entiers contenant la pondération de l’évaluation / 100 (entre 0 et 100).</li></ul><ul id="13b45eb1-bdf8-8078-a481-c3d722397803" class="bulleted-list"><li style="list-style-type:disc">Un autre tableau statique de deux dimensions de nombres flottants <code>notes</code>  :<ul id="13b45eb1-bdf8-809f-9893-c3fd31a560aa" class="bulleted-list"><li style="list-style-type:circle">Chaque ligne représente le résultat des évaluations de chaque étudiant (la position des résultats de l’étudiant dans le tableau des résultat correspond à la position de son nom dans le tableau des noms. </li></ul><ul id="13b45eb1-bdf8-80cb-8ab4-fe49903e9294" class="bulleted-list"><li style="list-style-type:circle">Chaque colonne correspond au résultat d’une évaluation. Une case de ce tableau représente une note d’un étudiant pour un examen (entre 0 et 100). </li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-8012-9a28-dbfe900064cf" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+2
+Entrez le nombre d’évaluations : 3
+Nom de l’évaluation 1 (de 2 à 15 caractères) : TP1
+Pondération de l’évaluation (0-100) : 30
+Nom de l’évaluation 2 (de 2 à 15 caractères) : TP2
+Pondération de l’évaluation (0-100) : 30
+Nom de l’évaluation 3 (de 2 à 15 caractères) : Examen
+Pondération de l’évaluation (0-100) : 40</code></pre></li></ul><ul id="14245eb1-bdf8-809c-8e90-fc25c0ece576" class="bulleted-list"><li style="list-style-type:disc">La somme  des pondérations des évaluations devrait être exactement 100. Sinon le programme doit lever (provoquer) une exception de type <code>SommePonderationsInvalideException</code>(la classe de l’exception personnalisée est fournie). Le message de l’exception s’affiche et le programme s’arrête normalement.<ul id="14245eb1-bdf8-8090-8ef3-fe583a872093" class="bulleted-list"><li style="list-style-type:circle">Exécution du programme provoquant l’exception :</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-80e7-9bf4-d09c90d395e9" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+2
+Entrez le nombre d’évaluations : 3
+Nom de l’évaluation 1 (de 2 à 15 caractères) : TP1
+Pondération de l’évaluation (0-100) : 30
+Nom de l’évaluation 2 (de 2 à 15 caractères) : TP2
+Pondération de l’évaluation (0-100) : 20
+Nom de l’évaluation 3 (de 2 à 15 caractères) : Examen
+Pondération de l’évaluation (0-100) : 40
+la somme des pendérations est différente de 100%.
+Au revoir!</code></pre><p id="14345eb1-bdf8-8076-ab9d-c6dee4efec09" class="">Le nombre des évaluations devrait être validé : </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-802f-afd4-db40c4659c1a" class="code"><code class="language-Plain Text">=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+2
+Entrez le nombre d’évaluations : -3
+Option invalide!
+Entrez le nombre d’évaluations : 0
+Option invalide!
+Entrez le nombre d’évaluations : 11
+Option invalide!</code></pre><p id="14345eb1-bdf8-80a4-81f4-e94aecd44458" class="">Les noms des évaluations devraient être validés : </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-8087-8b66-f5d6a1bc5cac" class="code"><code class="language-Plain Text">=========================================
+			Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+2
+Entrez le nombre d’évaluations : 3
+Nom de l’évaluation 1 (de 2 à 15 caractères) : 
+Erreur! Le nom de l&#x27;évaluation devrait contenir 2 à 15 caractères.
+Nom de l’évaluation 1 (de 2 à 15 caractères) : l
+Erreur! Le nom de l&#x27;évaluation devrait contenir 2 à 15 caractères.
+Nom de l’évaluation 1 (de 2 à 15 caractères) : L&#x27;évaluation de la mi-session
+Erreur! Le nom de l&#x27;évaluation devrait contenir 2 à 15 caractères.</code></pre><p id="14345eb1-bdf8-807a-9443-faa31f673a61" class="">Les pondérations des évaluations devraient être validées : </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-80db-b03b-cb7d80d1b91b" class="code"><code class="language-Plain Text">Entrez le nombre d’évaluations : 3
+Nom de l’évaluation 1 (de 2 à 15 caractères) : TP1
+Pondération de l’évaluation (0-100) : k
+Erreur de saisie! 
+Pondération de l’évaluation (0-100) : -1
+Option invalide!
+Pondération de l’évaluation (0-100) : 101
+Option invalide!
+Pondération de l’évaluation (0-100) : 0
+Nom de l’évaluation 2 (de 2 à 15 caractères) : </code></pre></li></ul><h3 id="13b45eb1-bdf8-809c-82fa-f4479bff9e81" class="">Option 3 : Affiche la liste des étudiants</h3><p id="14245eb1-bdf8-80aa-bf33-d475e7508cb2" class="">Cette option permet d’afficher la liste des étudiants dans un tableau :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-8068-8dc6-c250bdb14c61" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+3
+Les étudiants de la classe pour le cours 420-111 sont : 
+
+---------------------------------------------------------
+| Code étudiant |        Nom        |       prenom      |
+---------------------------------------------------------
+| PITV43980     | Pitre             | Vincent           |
+| MARA73519     | Martale           | Alain             |
+| POUN75487     | Pourtre           | Nissa             |
+---------------------------------------------------------</code></pre><h3 id="14245eb1-bdf8-8081-803b-c4d26bc70ae7" class="">Option 4 : Affiche la liste des évaluations</h3><p id="14245eb1-bdf8-8030-9d83-dd96a8a3b05c" class="">Cette option permet d’afficher la grille d’évaluation dans un tableau :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-80bc-aa2e-c3b532dd63ca" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+4
+Les évaluations de la classe pour le cours 420-111 sont : 
+
+--------------------------------------------
+| # éval |  Nom évaluation   | Pondération |
+--------------------------------------------
+| 1      | TP1               |         30% |
+| 2      | TP2               |         30% |
+| 3      | Examen            |         40% |
+--------------------------------------------</code></pre><h3 id="14245eb1-bdf8-80ef-be25-f6038b33130b" class="">Option 5 : Entrer / modifier des évaluations</h3><p id="13b45eb1-bdf8-8071-8dd6-cdbf1d6fbde1" class="">Cette option <code>entrerResultats</code>  donne le choix à partir d’un autre menu entre : </p><ul id="13b45eb1-bdf8-8068-898b-ef57cf1f7ae7" class="bulleted-list"><li style="list-style-type:disc">Option ‘a’ : Entrer / modifier  les résultats de tous les étudiants.<ul id="13b45eb1-bdf8-8048-a153-dc178066db0e" class="bulleted-list"><li style="list-style-type:circle">Une méthode statique <em><code>saisirNotesEtudiants</code></em>qui demande à l’utilisateur de saisir les notes de chaque étudiant pour chaque matière, et stocke les valeurs dans le tableau <code>notes</code>.</li></ul><ul id="13b45eb1-bdf8-8008-9bbb-c292f173fdc9" class="bulleted-list"><li style="list-style-type:circle">Cette option donne la possibilité à deux options d’insertion des notes et une option de retour :<ul id="13b45eb1-bdf8-8091-a4d1-ff43b1c9e93c" class="bulleted-list"><li style="list-style-type:square">Option ‘e’ : Entrer / modifier les résultats par étudiant (méthode statique <em><code>entrerNotesParEtudiant</code></em>).<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-80e9-910f-e1dc50800141" class="code"><code class="language-Plain Text">=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+5
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+
+a
+Voulez-vous entrer / modifier les résultats des étudiants par : 
+	e. étudiant
+	v. évaluation
+	r. retour au menu principal
+	
+e
+Veuillez entrer les notes des évaluations de chaque étudiant selon leur ordre, séparées par des espaces.
+Les évaluations sont : TP1, TP2, Examen 
+Les notes de l&#x27;étudiant Pitre Vincent sont : 
+50 74 85.4
+Les notes de l&#x27;étudiant Martale Alain sont : 
+44 65.4 35
+Les notes de l&#x27;étudiant Pourtre Nissa sont : 
+75 85 68
+	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+7
+Les résultats de la classe pour le cours 420-111 sont : 
+
+----------------------------------------------------------------------------------------
+|          Nom et prenom         |             TP1 |             TP2 |          Examen |
+----------------------------------------------------------------------------------------
+| Pitre Vincent                  |           50,00 |           74,00 |           85,40 |
+| Martale Alain                  |           44,00 |           65,40 |           35,00 |
+| Pourtre Nissa                  |           75,00 |           85,00 |           68,00 |
+----------------------------------------------------------------------------------------</code></pre><p id="14345eb1-bdf8-80a2-8beb-c6108cfd4fb6" class="">Des validations sont nécessaires pour les notes saisies :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-804f-aa63-cc637e753189" class="code"><code class="language-Plain Text">Les notes de l&#x27;étudiant Pitre Vincent (séparées par des espaces) sont : 
+a
+Une entrée n&#x27;est pas valide. Assurer vous que les fractions sont séparées par &#x27;,&#x27; ou non &#x27;.&#x27;
+Les notes de l&#x27;étudiant Pitre Vincent (séparées par des espaces) sont : 
+a h b
+Une entrée n&#x27;est pas valide. Assurer vous que les fractions sont séparées par &#x27;,&#x27; ou non &#x27;.&#x27;
+Les notes de l&#x27;étudiant Pitre Vincent (séparées par des espaces) sont : 
+15 25 g
+Une entrée n&#x27;est pas valide. Assurer vous que les fractions sont séparées par &#x27;,&#x27; ou non &#x27;.&#x27;
+Les notes de l&#x27;étudiant Pitre Vincent (séparées par des espaces) sont : 
+50 60 25,9
+Une entrée n&#x27;est pas valide. Assurer vous que les fractions sont séparées par &#x27;,&#x27; ou non &#x27;.&#x27;
+Les notes de l&#x27;étudiant Pitre Vincent (séparées par des espaces) sont : 
+50 60 23 25.5
+Le nombre de notes saisies ne correspond pas au nombre des évaluations.</code></pre></li></ul><ul id="13b45eb1-bdf8-8009-8035-fcf0c4cee84a" class="bulleted-list"><li style="list-style-type:square">Option ‘v’ : Entrer / modifier les résultats par évaluation (méthode statique <em><code>entrerNotesParEvaluation</code></em>).<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-80db-9a6d-fc2f6b798bb9" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+5
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+
+a
+Voulez-vous entrer / modifier les résultats des étudiants par : 
+	e. étudiant
+	v. évaluation
+	r. retour au menu principal
+	
+v
+Veuillez entrer les notes des étudiants de chaque évaluation selon leur ordre, séparées par des espaces.
+Les évaluations sont : TP1 TP2 Examen 
+Les notes de l&#x27;évaluation TP1 sont : 
+40 50 60
+Les notes de l&#x27;évaluation TP2 sont : 
+60 70 80
+Les notes de l&#x27;évaluation Examen sont : 
+70 80 90
+	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+7
+Les résultats de la classe pour le cours 420-111 sont : 
+
+----------------------------------------------------------------------------------------
+|          Nom et prenom         |             TP1 |             TP2 |          Examen |
+----------------------------------------------------------------------------------------
+| Pitre Vincent                  |           40,00 |           50,00 |           60,00 |
+| Martale Alain                  |           60,00 |           70,00 |           80,00 |
+| Pourtre Nissa                  |           70,00 |           80,00 |           90,00 |
+----------------------------------------------------------------------------------------
+</code></pre></li></ul><ul id="14245eb1-bdf8-8057-b072-d55fccc244b4" class="bulleted-list"><li style="list-style-type:square">Option ‘r’ : Retour au menu principal.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-80bd-90ca-fc3be8322853" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+5
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+
+a
+Voulez-vous entrer / modifier les résultats des étudiants par : 
+	e. étudiant
+	v. évaluation
+	r. retour au menu principal
+	
+r
+	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter</code></pre></li></ul><ul id="14345eb1-bdf8-802a-98bc-c85c735bf766" class="bulleted-list"><li style="list-style-type:square">Les options du menu de l’option 5 devraient être validées :<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-80e7-99dc-ea1d81f99a82" class="code"><code class="language-Plain Text">
+=========================================
+			Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+5
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+
+6
+Option invalide!
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+
+s
+Option invalide!
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+</code></pre></li></ul></li></ul></li></ul><ul id="13b45eb1-bdf8-809a-8f9c-ce78641a9527" class="bulleted-list"><li style="list-style-type:disc">Option ‘e’ : Entrer / modifier les résultats d’un étudiant.<ul id="b898adb7-fe43-47ad-9c8d-2772cbb41a5f" class="bulleted-list"><li style="list-style-type:circle">Une méthode statique <em><code>saisirNotesDunEtudiant</code></em>qui demande à l’utilisateur de saisir les notes de chaque étudiant pour chaque matière, et stocke les valeurs dans le tableau <code>notes</code>.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-80a7-9753-f0659abb4739" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+5
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+
+e
+Veuillez entrer le code de l&#x27;étudiant : 
+MARA73519
+Les notes de l&#x27;étudiant Martale Alain sont : 
+75 64.75 83
+	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+	7
+Les résultats de la classe pour le cours 420-111 sont : 
+
+----------------------------------------------------------------------------------------
+|          Nom et prenom         |             TP1 |             TP2 |          Examen |
+----------------------------------------------------------------------------------------
+| Pitre Vincent                  |           40,00 |           60,00 |           70,00 |
+| Martale Alain                  |           75,00 |           64,75 |           83,00 |
+| Pourtre Nissa                  |           60,00 |           80,00 |           90,00 |
+----------------------------------------------------------------------------------------</code></pre><p id="14345eb1-bdf8-8039-a52c-c8a627269ae4" class="">Des validations sont nécessaires pour le code de l’étudiant : </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-802a-b198-fe68c99f8e75" class="code"><code class="language-Plain Text">Veuillez entrer le code de l&#x27;étudiant : 
+Erreur! Le code de l&#x27;étudiant se compose de 4 lettres suivies de 5 chiffres
+Veuillez entrer le code de l&#x27;étudiant : MARA7351
+Erreur! Le code de l&#x27;étudiant se compose de 4 lettres suivies de 5 chiffres
+Veuillez entrer le code de l&#x27;étudiant : MAR73519
+Erreur! Le code de l&#x27;étudiant se compose de 4 lettres suivies de 5 chiffres
+Veuillez entrer le code de l&#x27;étudiant : 
+MARA60378
+Le code étudiant &quot;MARA60378&quot; n&#x27;existe pas!
+Veuillez entrer le code de l&#x27;étudiant : 
+MARA73519     
+Les notes de l&#x27;étudiant Martale Alain (séparées par des espaces) sont : 
+</code></pre></li></ul></li></ul><ul id="13b45eb1-bdf8-80ec-b6c7-c068962163a8" class="bulleted-list"><li style="list-style-type:disc">Option ‘v’ : Entrer / modifier les résultat d’une évaluation<ul id="13b45eb1-bdf8-8027-963e-cc53d5b3523a" class="bulleted-list"><li style="list-style-type:circle">une méthode statique <em><code>saisirNotesDuneEvaluation</code></em>qui demande à l’utilisateur de saisir les notes de chaque étudiant pour chaque matière, et stocke les valeurs dans le tableau <code>notes</code>.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-8073-a5b1-dd26c705ec3d" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+5
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+
+v
+Veuillez saisir le numéro de évaluation de 1 à 3 : 3
+Les notes de l&#x27;évaluation Examen (séparées par des espaces) sont : 
+50 60 80
+	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+	7
+Les résultats de la classe pour le cours 420-111 sont : 
+
+----------------------------------------------------------------------------------------
+|          Nom et prenom         |             TP1 |             TP2 |          Examen |
+----------------------------------------------------------------------------------------
+| Pitre Vincent                  |           40,00 |           60,00 |           50,00 |
+| Martale Alain                  |           75,00 |           64,75 |           60,00 |
+| Pourtre Nissa                  |           60,00 |           80,00 |           80,00 |
+----------------------------------------------------------------------------------------</code></pre><p id="14345eb1-bdf8-8036-afce-c641acd76984" class="">Des validations pour le numéro de l’évaluation sont nécessaires :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-8001-b9e2-e58de051c470" class="code"><code class="language-Plain Text">=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes : 
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+5
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+
+v
+Veuillez saisir le numéro de évaluation de 1 à 3 : 0
+Le numéro de l&#x27;éval est incorrect! 
+Veuillez saisir le numéro de évaluation de 1 à 3 : 4
+Le numéro de l&#x27;éval est incorrect! 
+Veuillez saisir le numéro de évaluation de 1 à 3 : 3
+Les notes de l&#x27;évaluation Examen (séparées par des espaces) sont : </code></pre></li></ul></li></ul><ul id="13b45eb1-bdf8-806b-83bf-f8ce3809ef0f" class="bulleted-list"><li style="list-style-type:disc">Option ‘n’ : Entrer / modifier une note (d’une évaluation pour un étudiant).<ul id="13b45eb1-bdf8-80c5-aa2b-dcc8dab97c4d" class="bulleted-list"><li style="list-style-type:circle">une méthode statique <em><code>saisirNotesDuneEvaluationDunEtudiant</code></em>qui demande à l’utilisateur de saisir les notes de chaque étudiant pour chaque matière, et stocke les valeurs dans le tableau <code>notes</code>.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-8045-ab39-e75fcf59179c" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+5
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+
+n
+Veuillez entrer le code de l&#x27;étudiant : 
+MARA60378
+Veuillez saisir le numéro de évaluation de 1 à 3 : 2
+Veuillez entrer la note de l&#x27;évaluation : TP2
+55
+	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+	7
+Les résultats de la classe pour le cours 420-111 sont : 
+----------------------------------------------------------------------------------------
+|          Nom et prenom         |             TP1 |             TP2 |          Examen |
+----------------------------------------------------------------------------------------
+| Pitre Vincent                  |           40,00 |           60,00 |           50,00 |
+| Martale Alain                  |           75,00 |           55,00 |           60,00 |
+| Pourtre Nissa                  |           60,00 |           80,00 |           80,00 |
+----------------------------------------------------------------------------------------</code></pre></li></ul></li></ul><ul id="14245eb1-bdf8-80bc-962c-e8b6e70b8b8a" class="bulleted-list"><li style="list-style-type:disc">Option ‘r’ : Permet de retourner au menu principal.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-802c-821b-d4ee484771db" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+5
+Voulez-vous entrer / modifier les résultats de : 
+	a. tous les étudiants
+	e. un étudiant
+	v. une évaluation
+	n. une évaluation d&#x27;un étudiant
+	r. retour au menu principal
+	
+r
+	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter</code></pre></li></ul><h3 id="13b45eb1-bdf8-80e2-8cdf-ee55b36a4461" class="">Option 6 : Calculer les résultats</h3><ul id="13b45eb1-bdf8-8085-b477-d6366eff4eed" class="bulleted-list"><li style="list-style-type:disc">Cette option permet de calculer les résultats de la classe :<ul id="13b45eb1-bdf8-804d-a804-e3095ea70fa2" class="bulleted-list"><li style="list-style-type:circle">La moyenne pondéré de chaque étudiant, stockée dans un tableau <code>moyenneEtudiants</code>.</li></ul><ul id="13b45eb1-bdf8-8080-828b-dc60373e144b" class="bulleted-list"><li style="list-style-type:circle">La moyenne de chaque évaluation, stockée dans un tableau <code>moyenneEvals</code>.</li></ul><ul id="13b45eb1-bdf8-80fc-bdb7-ca887ea88b05" class="bulleted-list"><li style="list-style-type:circle">La moyenne générale de toute la classe.</li></ul><ul id="13b45eb1-bdf8-809c-9803-cfac114b8b2d" class="bulleted-list"><li style="list-style-type:circle">La note la plus faible par étudiant.</li></ul><ul id="13b45eb1-bdf8-80f1-baff-f32f7958d5cb" class="bulleted-list"><li style="list-style-type:circle">La note la plus faible par évaluation.</li></ul><ul id="13b45eb1-bdf8-8086-92ba-cac7fbfa7d80" class="bulleted-list"><li style="list-style-type:circle">La note la plus élevée par étudiant.</li></ul><ul id="13b45eb1-bdf8-8032-a4f7-fef87c55284b" class="bulleted-list"><li style="list-style-type:circle">La note la plus élevée par évaluation.</li></ul><ul id="13c45eb1-bdf8-8038-b30f-ec23a9f75c9e" class="bulleted-list"><li style="list-style-type:circle">Le nombre des étudiants qui ont réussi le cours.</li></ul><ul id="13c45eb1-bdf8-8034-9127-d0dc368dcaa4" class="bulleted-list"><li style="list-style-type:circle">Le nombre des étudiants qui ont échoué le cours.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-804a-aaea-e50d0b1e4745" class="code"><code class="language-Plain Text">
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+6
+Les statistiques de la classe ont été calculées avec succès. Pour les consulter, veuillez choisir l&#x27;option 8 du menu.</code></pre></li></ul><h3 id="13b45eb1-bdf8-8007-becb-fbe3eada0277" class="">Option 7 : Afficher les résultats</h3><p id="13b45eb1-bdf8-80a7-8e2c-d29f1559f402" class="">Cette option permet d’afficher les résultats de la classe (Voir un exemple avec l’option 5).</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14345eb1-bdf8-804c-b937-deb669b12803" class="code"><code class="language-Plain Text">	
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+	7
+Les résultats de la classe pour le cours 420-111 sont : 
+----------------------------------------------------------------------------------------
+|          Nom et prenom         |             TP1 |             TP2 |          Examen |
+----------------------------------------------------------------------------------------
+| Pitre Vincent                  |           40,00 |           60,00 |           50,00 |
+| Martale Alain                  |           75,00 |           55,00 |           60,00 |
+| Pourtre Nissa                  |           60,00 |           80,00 |           80,00 |
+----------------------------------------------------------------------------------------</code></pre><h3 id="13b45eb1-bdf8-805f-9b54-e8151ae04468" class="">Option 8 : Afficher les statistiques</h3><p id="13b45eb1-bdf8-80b8-bba9-e33a164d02b1" class="">Cette option permet d’afficher les statistiques de la classe.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14245eb1-bdf8-80f1-9c9d-ebc4f71fc220" class="code"><code class="language-Plain Text">
+=========================================
+						Menu principal
+=========================================
+Veuillez choisir une des options suivantes
+	1. Créer une classe d’étudiants
+	2. Créer une grille d’évaluation
+	3. Affiche la liste des étudiants
+	4. Afficher la liste des évaluations
+	5. Entrer / modifier des résultats
+	6. Calculer les résultats
+	7. Afficher les résultats
+	8. Afficher les statistiques
+	9. Trier les résultats
+	10. Créer les rapports des résultats et statistiques
+	11. Quitter
+8
+============================
+				Statistiques
+============================
+
+Les stats des étudiants sont : 
+
+-----------------------------------------------------------------------------------------
+|          Nom et prénom         | Meilleure note |    Pire note   | Moyenne | Résultat |
+-----------------------------------------------------------------------------------------
+| Pitre Vincent                  |          60,00 |          40,00 |   50,00 |    échec |
+| Martale Alain                  |          75,00 |          60,00 |   66,58 |   succès |
+| Pourtre Nissa                  |          80,00 |          60,00 |   73,33 |   succès |
+-----------------------------------------------------------------------------------------
+Les stats des évaluations sont : 
+
+-------------------------------------------------------------------------
+|    Nom de l&#x27;évaluation    | Meilleure note |    Pire note   | Moyenne |
+-------------------------------------------------------------------------
+| TP1                       |          75,00 |          40,00 |   58,33 |
+| TP2                       |          80,00 |          55,00 |   65,00 |
+| Examen                    |          80,00 |          50,00 |   63,33 |
+-------------------------------------------------------------------------
+La moyenne de la classe est : 62,22
+
+Le nombre d&#x27;étudiants à succès : 2 / 3
+
+Le nombre d&#x27;étudiants à échec : 1 / 3
+</code></pre><h3 id="13b45eb1-bdf8-80e2-af56-e8a5d0fa1d22" class="">Option 9 : Trier les résultats (Bonus)</h3><ul id="13b45eb1-bdf8-8066-9289-ea5e8a6fb3f1" class="bulleted-list"><li style="list-style-type:disc">Permet de trier les résultats selon la moyenne pondérée des étudiants. Deux options sont possibles : <ul id="13b45eb1-bdf8-8065-9379-d2b1ba138180" class="bulleted-list"><li style="list-style-type:circle"><strong>Option ‘c’</strong> : trier les résultats par ordre croissant de la moyenne des étudiants.</li></ul><ul id="13b45eb1-bdf8-809f-a4a9-d2be287a30d3" class="bulleted-list"><li style="list-style-type:circle"><strong>Option ‘d’</strong> : trier les résultats par ordre décroissant de la moyenne des étudiants.</li></ul></li></ul><ul id="13b45eb1-bdf8-80b4-8469-c4a3c07aff4e" class="bulleted-list"><li style="list-style-type:disc">Cette option permet non seulement de trier le tableau des résultats mais de modifier les autres tableaux pour que la position du résultat d’un étudiant soit dans la même ligne que ses informations (nom, notes, etc.)</li></ul><h3 id="14245eb1-bdf8-80c8-bc97-cf05cd42ede7" class="">Option 10 : Créer les rapports des résultats et statistiques</h3><p id="14245eb1-bdf8-80a9-92c8-d00dd83cd1a8" class="">Permet de générer 4 fichiers :</p><ul id="14345eb1-bdf8-8018-9f74-d4a3cebed7aa" class="bulleted-list"><li style="list-style-type:disc"> <code>liste_etudiants.txt </code>: la liste des étudiants (voir le fichier fourni).</li></ul><ul id="14345eb1-bdf8-80a0-abf4-ef0337d35f4a" class="bulleted-list"><li style="list-style-type:disc"><code>liste_evaluations,txt</code> : la liste des évaluation (voir le fichier fourni).</li></ul><ul id="14345eb1-bdf8-8039-9d50-fc4962680e39" class="bulleted-list"><li style="list-style-type:disc"><code>resultats.txt </code>: les résultats des évaluations des étudiants (voir le fichier fourni).</li></ul><ul id="14345eb1-bdf8-8071-a8eb-e36711c04d63" class="bulleted-list"><li style="list-style-type:disc"><code>stats.txt</code> : les statistiques calculées (voir le fichier fourni).</li></ul><figure id="14345eb1-bdf8-8005-8e89-d80f9d8fa731" class="image"><a href="image.png"><img style="width:198px" src="image.png"/></a></figure><p id="13b45eb1-bdf8-80e8-aed0-dec39ea902f7" class=""><strong>Consignes :</strong></p><ul id="13b45eb1-bdf8-800a-9d44-e39912c8c4e2" class="bulleted-list"><li style="list-style-type:disc">Le code doit utiliser les méthodes fournies, Des méthodes et des entêtes de méthodes sont fournies et certaines méthodes sont déjà implémentées. Il faut les utiliser toutes. </li></ul><ul id="14345eb1-bdf8-8047-8310-f77dc2af14bd" class="bulleted-list"><li style="list-style-type:disc">Tous les fichiers .java qui ont été fournis sont nécessaires. Les constantes et les méthodes devraient toutes être utilisées sans aucune modification.</li></ul><ul id="13b45eb1-bdf8-80cb-8463-fe5d74e942a1" class="bulleted-list"><li style="list-style-type:disc">Les données sont manipulées via des tableaux <strong>statiques</strong>.</li></ul><ul id="13b45eb1-bdf8-804c-8fef-d1610d7fa20b" class="bulleted-list"><li style="list-style-type:disc">Commentez votre code quand c’est nécessaire et respectez les consignes de style.</li></ul><ul id="14345eb1-bdf8-8028-a771-d36865eac2cf" class="bulleted-list"><li style="list-style-type:disc">Aucune tolérance au plagiat.</li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="14345eb1-bdf8-8089-965c-e891875aace2"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><p id="a77c6f03-3056-4066-aff2-94ec11660f94" class="">Des mesures seront appliquées sur tout tentative de fraude ou de plagiat.</p></div></figure><h3 id="14245eb1-bdf8-80a4-b8bd-d30b86add326" class=""><strong>Livrables</strong></h3><ol type="1" id="14245eb1-bdf8-808c-a9f5-f75a8863f8a8" class="numbered-list" start="1"><li><strong>Code source</strong> :<ul id="14245eb1-bdf8-8032-8eb4-c28cec76bfee" class="bulleted-list"><li style="list-style-type:disc">Fournissez tous les fichiers <code>.java</code>.</li></ul><ul id="14245eb1-bdf8-80c6-94c1-d9f7b8e78ca4" class="bulleted-list"><li style="list-style-type:disc">Assurez-vous que le code soit documenté avec des JavaDocs.</li></ul></li></ol><ol type="1" id="14245eb1-bdf8-807d-96f4-ef7e1bd07b03" class="numbered-list" start="2"><li><strong>Rapports</strong> :<ul id="14245eb1-bdf8-800c-87c5-f9abeae76091" class="bulleted-list"><li style="list-style-type:disc">Générer 4 fichiers texte générés :<ul id="14245eb1-bdf8-800f-89b6-f3275917f096" class="bulleted-list"><li style="list-style-type:circle">Un fichier pour les résultats doit être nommé : <code>resultats.txt</code></li></ul><ul id="14245eb1-bdf8-8085-a9fd-da8015aab156" class="bulleted-list"><li style="list-style-type:circle">Un fichier pour les statistiques doit être nommé : <code>stats.txt</code></li></ul><ul id="14345eb1-bdf8-801a-8709-d5505c9540b1" class="bulleted-list"><li style="list-style-type:circle">Un fichier pour la liste des étudiants doit être nommé : <code>liste_etudiants.txt</code></li></ul><ul id="14345eb1-bdf8-80d5-8878-fbd9415ed6d4" class="bulleted-list"><li style="list-style-type:circle">Un fichier pour la liste des évaluations doit être nommé : <code>liste_evaluations.txt</code></li></ul></li></ul></li></ol><ol type="1" id="14245eb1-bdf8-80e5-93da-d867d445389f" class="numbered-list" start="3"><li><strong>Démonstration</strong> (si applicable) :<ul id="14245eb1-bdf8-80c0-a035-f1ca292b4ee9" class="bulleted-list"><li style="list-style-type:disc">Montrez le fonctionnement de votre programme à l’enseignante en expliquant votre code.</li></ul></li></ol><h3 id="13b45eb1-bdf8-8050-bd29-df218d9eafd2" class=""><strong>Critères d’évaluation</strong></h3><ul id="13b45eb1-bdf8-80d8-b4c7-e58b18fee5d2" class="bulleted-list"><li style="list-style-type:disc">Respect des consignes et des signatures de méthode : 10%</li></ul><ul id="13b45eb1-bdf8-80a5-bf46-dd9fdc56b3c6" class="bulleted-list"><li style="list-style-type:disc">Bonne utilisation des variables, boucles, conditions, et des tableaux : 30%</li></ul><ul id="13b45eb1-bdf8-80b3-a87a-c953c391db6f" class="bulleted-list"><li style="list-style-type:disc">Clarté et lisibilité du code (indentation, commentaires) : 10%</li></ul><ul id="13b45eb1-bdf8-807a-af5a-ea7d723410a3" class="bulleted-list"><li style="list-style-type:disc">Affichage correct des résultats et calcules : 30%</li></ul><ul id="14345eb1-bdf8-8049-9a80-d06b8abdad1a" class="bulleted-list"><li style="list-style-type:disc">Validations des entrées : 20%</li></ul><ul id="13b45eb1-bdf8-805b-b341-e3e7bfaef723" class="bulleted-list"><li style="list-style-type:disc">Fonctionnalité supplémentaire correcte (Exercice Bonus : option 9) : 5%</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

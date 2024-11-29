@@ -74,7 +74,9 @@ public class App {
      * @Implementation d'un switch case qui redirige vers les methodes designe selon l'option choisie.
      */
     public static void appliquerOption(int option) throws NombreEtudiantsDepasseCapaciteException, SommePonderationsInvalideException {
-        // TODO : à implémenter
+        // TODO : à implémenter // use booleans that validate that an option was completed prior to another
+        boolean option1Complete = false;
+
         switch (option){
             case 1:
                 creerClasseEtudiants();
@@ -83,6 +85,9 @@ public class App {
                 creerGrilleEvaluation();
                 break;
             case 3:
+                if(!option1Complete){
+                    System.out.println(Utilitaire.MSG_ERR_CLASSE_INEXISTANTE);
+                }
                 afficherListeEtudiants();
                 break;
             case 4:
@@ -222,7 +227,7 @@ public class App {
      * (Option 10)
      */
     private static void creerRapportResultats() {
-        // TODO : à implémenter
+        // TODO : à implémenter ** Sur Github copy/paste
     }
 
     /**
@@ -403,7 +408,12 @@ public class App {
      * Permet de saisir la note pour une évaluation spécifique d'un étudiant.
      */
     private static void saisirNotesDuneEvaluationDunEtudiant() {
-        // TODO : à implémenter
+        // TODO : à implémenter le code est complete, donnee par l'enseignante
+        int posEtudiant = Validations.validerCodeEtudiant(etudiants);
+        int posEval = Validations.validerNumEval(nbrEvals);
+        float note = Validations.validerNote(evals[posEval]);
+
+        notes[posEtudiant][posEval] = note;
     }
 
 }

@@ -243,6 +243,7 @@ public class Validations {
      * @return Le numéro valide de l'évaluation.
      */
     public static int validerNumEval(int nbrEvals) {
+        //option 5
         int numEval = -1;
 
         // TODO : à implémenter

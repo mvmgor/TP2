@@ -75,8 +75,6 @@ public class App {
      */
     public static void appliquerOption(int option) throws NombreEtudiantsDepasseCapaciteException, SommePonderationsInvalideException {
         // TODO : à implémenter // use booleans that validate that an option was completed prior to another
-        boolean option1Complete = false;
-
         switch (option){
             case 1:
                 creerClasseEtudiants();
@@ -85,9 +83,6 @@ public class App {
                 creerGrilleEvaluation();
                 break;
             case 3:
-                if(!option1Complete){
-                    System.out.println(Utilitaire.MSG_ERR_CLASSE_INEXISTANTE);
-                }
                 afficherListeEtudiants();
                 break;
             case 4:
@@ -286,9 +281,12 @@ public class App {
      */
     private static void entrerNomsEtudiants() {
         // TODO : à implémenter
-
-
-
+        int i ;
+        for(i = 0; i < nbrEtudiants; i++){
+            String [] prenomsNoms = Validations.validerNomEtudiant(Utilitaire.MSG_SAISIE_NOM_ETUDIANT,i);
+            etudiants[0][i] = prenomsNoms[0];
+            etudiants[1][i] = prenomsNoms[1];
+        }
     }
 
     /**

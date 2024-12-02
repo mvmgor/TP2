@@ -156,12 +156,9 @@ public class Validations {
         String[] nomEtudiant = null;
         do {
             // TODO : à implémenter
-            for (int i = 0; i == numEtudiant; i++) {
-                System.out.printf(Utilitaire.MSG_SAISIE_NOM_ETUDIANT,i);
+                System.out.printf(message,numEtudiant+1);
                 entree = sc.nextLine();
                 nomEtudiant = entree.split(Utilitaire.SEPARATEUR_NOM);
-
-            }
 
         } while (nomEtudiant.length != 2);
 

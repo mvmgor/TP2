@@ -88,8 +88,16 @@ public class Validations {
      */
     public static String validerNomEval(int numEval) {
         // TODO : à implémenter
+        String nomEval = null;
 
-        return null;
+        do {
+            System.out.printf(Utilitaire.MSG_SAISI_NOM_EVAL,numEval);
+            nomEval = sc.nextLine();
+
+
+        }while()
+
+        return nomEval;
     }
 
     /**

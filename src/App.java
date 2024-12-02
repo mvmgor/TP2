@@ -137,7 +137,18 @@ public class App {
      */
     private static void creerGrilleEvaluation() throws SommePonderationsInvalideException {
         // TODO : à implémenter
+        // utiliser validerNombre() pour initialiser nbrEvals
+        // initialiser le tableau evals et le tableau ponderations avec la taille nbrEvals
+        // boucle avec nbrEval itérations qui appelle validerNomEval() pour insérer les noms des evals
+        // et validerNombre() la ponderation
         nbrEvals = Validations.validerNombre(Utilitaire.MSG_ENTRER_NUM_EVAL,Utilitaire.MIN_NBR_EVALS, Utilitaire.MAX_NBR_EVALS);
+        evals = new String[nbrEvals];
+        ponderations = new int[nbrEvals];
+
+        for(int i = 0 ; i < evals.length;i++){
+            nomEval = Validations.validerNomEval(i);
+
+        }
 
         // validation nom d'eval et entrer des noms dans le tableaux
 

@@ -144,10 +144,16 @@ public class App {
         nbrEvals = Validations.validerNombre(Utilitaire.MSG_ENTRER_NUM_EVAL,Utilitaire.MIN_NBR_EVALS, Utilitaire.MAX_NBR_EVALS);
         evals = new String[nbrEvals];
         ponderations = new int[nbrEvals];
+        int sommePonderation = 0;
 
         for(int i = 0 ; i < evals.length;i++){
-            nomEval = Validations.validerNomEval(i);
-
+            //String nomEval =
+            evals[i] = Validations.validerNomEval(i);
+            ponderations[i] = Validations.validerNombre(Utilitaire.MSG_SAISI_PONDERATION,Utilitaire.MIN_PONDERATION_EVAL,Utilitaire.MAX_PONDERATION_EVAL);
+            sommePonderation += ponderations[i];
+            if(sommePonderation > Utilitaire.MAX_PONDERATION_EVAL){
+                throw new SommePonderationsInvalideException();
+            }
         }
 
         // validation nom d'eval et entrer des noms dans le tableaux

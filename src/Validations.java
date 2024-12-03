@@ -35,8 +35,9 @@ public class Validations {
     public static int validerNombre(String message, int borneInf, int borneSup) {
         // TODO : à implémenter
         try {
-            System.out.println(message);
+            System.out.printf(message,borneInf,borneSup);
             int nombre = sc.nextInt();
+            sc.nextLine();
             if( nombre < borneInf || nombre > borneSup) {
                 System.out.println(Utilitaire.MSG_ERR_OPTION_INVALIDE);
                 return 0;
@@ -64,6 +65,7 @@ public class Validations {
             try {
                 System.out.println(Utilitaire.MSG_SAISIE_NBR_ETUDIANTS);
                 nbEtudiant = sc.nextInt();
+                sc.nextLine();
                 if(nbEtudiant > Utilitaire.CAPACITE_MAX_CLASSE) {
                     throw new NombreEtudiantsDepasseCapaciteException(); // **Needs to end program**
                 } else if (nbEtudiant < Utilitaire.CAPACITE_MIN_CLASSE ) {
@@ -88,16 +90,24 @@ public class Validations {
      */
     public static String validerNomEval(int numEval) {
         // TODO : à implémenter
-        String nomEval = null;
+        String nomEvaluation = null;
 
         do {
-            System.out.printf(Utilitaire.MSG_SAISI_NOM_EVAL,numEval);
-            nomEval = sc.nextLine();
 
+            System.out.printf(Utilitaire.MSG_SAISI_NOM_EVAL,numEval+1);
+//            if(sc.hasNextLine()){//Suite a des erreurs, ajout de cette ligne pour vider le tampon
+//                sc.nextLine();
+//            }
+            nomEvaluation = sc.nextLine().trim();//Enlever les espaces non necessaire
 
-        }while()
+            if(nomEvaluation.length() < Utilitaire.MIN_TAILLE_NOM_EVAL || nomEvaluation.length() > Utilitaire.MAX_TAILLE_NOM_EVAL){
+                System.out.println(Utilitaire.MSG_ERR_SAISI_NOM_EVAL);
+                nomEvaluation = null;
+            }
 
-        return nomEval;
+        }while(nomEvaluation == null);
+
+        return nomEvaluation;
     }
 
     /**
@@ -164,9 +174,9 @@ public class Validations {
         String[] nomEtudiant = null;
         do {
             // TODO : à implémenter
-                System.out.printf(message,numEtudiant+1);
-                entree = sc.nextLine();
-                nomEtudiant = entree.split(Utilitaire.SEPARATEUR_NOM);
+            System.out.printf(message,numEtudiant+1);
+            entree = sc.nextLine();
+            nomEtudiant = entree.split(Utilitaire.SEPARATEUR_NOM);
 
         } while (nomEtudiant.length != 2);
 

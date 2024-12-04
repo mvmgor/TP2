@@ -263,8 +263,19 @@ public class App {
      */
     private static String obtenirListeEtudiants() {
         // TODO : à implémenter
+        String listeEtudiant = "";
+
+        for(int i = 0; i < etudiants.length-1;i++){//check genererStatsEtudiants()
+            String nomComplet = Utilitaire.recupererNomComplet(etudiants,i); //Recupere les infos de l'etudiant sur une seul ligne de String
+            String[] nomEnPartie = nomComplet.split(" ");// fait un tableau et separe nomComplet avec .split
+            String nom = nomEnPartie[0]; // Recupere leurs valeurs
+            String prenom = nomEnPartie[1];
+            String code = nomEnPartie[2];
+            listeEtudiant += String.format(Utilitaire.FORMAT_COLLONNES_LISTE_ETUDIANTS,code,nom,prenom);
+        }
+
         
-        return null;
+        return listeEtudiant;
     }
 
     /**
@@ -303,6 +314,7 @@ public class App {
             String [] prenomsNoms = Validations.validerNomEtudiant(Utilitaire.MSG_SAISIE_NOM_ETUDIANT,i);
             etudiants[0][i] = prenomsNoms[0];
             etudiants[1][i] = prenomsNoms[1];
+            etudiants[2][i] = Utilitaire.genererCodeEtudiant(prenomsNoms[0],prenomsNoms[1]);
         }
     }
 

@@ -95,10 +95,7 @@ public class Validations {
         do {
 
             System.out.printf(Utilitaire.MSG_SAISI_NOM_EVAL,numEval+1);
-//            if(sc.hasNextLine()){//Suite a des erreurs, ajout de cette ligne pour vider le tampon
-//                sc.nextLine();
-//            }
-            nomEvaluation = sc.nextLine().trim();//Enlever les espaces non necessaire
+            nomEvaluation = sc.next();
 
             if(nomEvaluation.length() < Utilitaire.MIN_TAILLE_NOM_EVAL || nomEvaluation.length() > Utilitaire.MAX_TAILLE_NOM_EVAL){
                 System.out.println(Utilitaire.MSG_ERR_SAISI_NOM_EVAL);
@@ -124,7 +121,7 @@ public class Validations {
 
         do {
             System.out.println(message);
-            entree = sc.nextLine();
+            entree = sc.next();
             estValide = entree.length() == 1 && caracteresAcceptes.contains(entree.toLowerCase());
             if (!estValide) {
                 System.out.println(msgErreur);
@@ -175,7 +172,7 @@ public class Validations {
         do {
             // TODO : à implémenter
             System.out.printf(message,numEtudiant+1);
-            entree = sc.nextLine();
+            entree = sc.next();
             nomEtudiant = entree.split(Utilitaire.SEPARATEUR_NOM);
 
         } while (nomEtudiant.length != 2);

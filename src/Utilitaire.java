@@ -73,7 +73,19 @@ public class Utilitaire {
     }
 
     public static String genererCodeEtudiant(String nom, String prenom) {
-        return null;
+        String partie1 = nom.substring(0,3).toUpperCase();
+        String partie2 = prenom.substring(0,1).toUpperCase();
+
+        int random = (int) (Math.random() * 10000);
+        String partie3 = Integer.toString(random);
+
+        while(partie3.length() < 5){ // ajout des 0 si le nombre est < 5
+            partie3 += "0";
+        }
+
+        String code = partie1 + partie2 + partie3;
+
+        return code;
     }
 
     public static float[] extraireColonne(float[][] notes, int colonne) {
@@ -89,7 +101,14 @@ public class Utilitaire {
     }
 
     public static String recupererNomComplet(String[][] etudiants, int posEtudiant) {
-        return null;
+
+        String nom = etudiants[0][posEtudiant];
+        String prenom = etudiants[1][posEtudiant];
+        String code = etudiants[2][posEtudiant];
+
+        String info = String.format("%s %s %s",nom, prenom,code);
+
+        return info;
     }
 
     public static String assemblerTableau(String entete, String donnees) {

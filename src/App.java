@@ -364,7 +364,7 @@ public class App {
             case 'e':
 
                 System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
-                int notes = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS,Utilitaire.ETUDIANT, Utilitaire.EVALUATION,);
+                //int notes = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS,Utilitaire.ETUDIANT, Utilitaire.EVALUATION,);
                 break;
 
 

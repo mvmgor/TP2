@@ -93,7 +93,11 @@ public class Utilitaire {
     }
 
     public static String afficherElementsListeSurUneLigne(String[] liste) {
-        return null;
+        String elements = "";
+        for (String element : liste){
+            elements += element + " ";
+        }
+        return elements.trim();
     }
 
     public static float[] parseStringListToFloatList(String[] liste) throws NumberFormatException {

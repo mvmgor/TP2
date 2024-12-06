@@ -173,7 +173,7 @@ public class App {
      * (Option 4)
      */
     private static void afficherListeEvals() {
-        if (etudiants != null) {
+        if (evals != null) {
             System.out.println(Utilitaire.MSG_AFFICHER_LISTE_EVALS + obtenirListeEvals());
         } else {
             System.out.println(Utilitaire.MSG_ERR_GRILLE_EVAL_INEXISTANTE);
@@ -202,7 +202,16 @@ public class App {
                 saisirNotesDuneEvaluationDunEtudiant();
             break;
             default:
-                demarrerProgramme(); //Prendre le code du main??
+               // demarrerProgramme(); //Prendre le code du main??
+                try {
+                    demarrerProgramme();
+                } catch (NombreEtudiantsDepasseCapaciteException e) {
+                    System.out.println(e.getMessage());
+                } catch (SommePonderationsInvalideException e) {
+                    System.out.println(e.getMessage());
+                } finally {
+                    System.out.println(Utilitaire.MSG_QUITTER_PROGRAMME);
+                }
         }
     }
 
@@ -351,6 +360,15 @@ public class App {
         char choix = Validations.validerLettre(Utilitaire.MENU_ENTRER_NOTES_ETUDIANTS, 
                     Utilitaire.MSG_ERR_ENTRER_NOTES, Utilitaire.OPTIONS_ENTREE_NOTES_TOUS_ETUDIANTS);
         // TODO : à implémenter
+        switch (choix) {
+            case 'e':
+
+                System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
+                int notes = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS,Utilitaire.ETUDIANT, Utilitaire.EVALUATION,);
+                break;
+
+
+        }
     }
 
     /**
@@ -431,6 +449,9 @@ public class App {
      */
     private static void saisirNotesDuneEvaluation() {
         // TODO : à implémenter
+        notes = new float[nbrEtudiants][nbrEvals];
+
+
     }
 
     /**
@@ -448,6 +469,7 @@ public class App {
      */
     private static void entrerNotesParEvaluation() {
         // TODO : à implémenter
+      //saisirNotesDuneEvaluation();
     }
 
     /**
@@ -455,6 +477,7 @@ public class App {
      */
     private static void entrerNotesParEtudiant() {
         // TODO : à implémenter
+
     }
 
     /**

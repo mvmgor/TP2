@@ -3,3 +3,11 @@
 Marvin_Orellana
 Khaled_Abou
 3
+TP1
+30
+TP2
+30
+Exam
+40
+
+3

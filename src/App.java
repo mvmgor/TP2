@@ -193,10 +193,10 @@ public class App {
                 saisirNotesEtudiants();
             break;
             case 'e':
-                entrerNotesParEtudiant();
+                saisirNotesDunEtudiant();
             break;
             case 'v':
-                entrerNotesParEvaluation();
+                saisirNotesDuneEvaluation();
             break;
             case 'n':
                 saisirNotesDuneEvaluationDunEtudiant();
@@ -362,10 +362,17 @@ public class App {
         // TODO : à implémenter
         switch (choix) {
             case 'e':
-
-                System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
+                entrerNotesParEtudiant();
+               // System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
                 //int notes = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS,Utilitaire.ETUDIANT, Utilitaire.EVALUATION,);
                 break;
+            case 'v':
+                entrerNotesParEvaluation();
+                break;
+            case 'r':
+                //*******ADD SOMETHING*************
+                break;
+            default:
 
 
         }
@@ -477,6 +484,12 @@ public class App {
      */
     private static void entrerNotesParEtudiant() {
         // TODO : à implémenter
+        String noteSaisie = "";
+        String lesEvaluations = Utilitaire.afficherElementsListeSurUneLigne(evals);
+        System.out.printf(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS, Utilitaire.EVALUATION,Utilitaire.ETUDIANT);
+        System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS,lesEvaluations);
+        noteSaisie = Validations.validerNote()
+
 
     }
 

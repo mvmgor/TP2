@@ -1,8 +1,4 @@
 package src;
-import jdk.jshell.execution.Util;
-
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 /**
  * TP2 - 420-111 (A24)
@@ -180,7 +176,7 @@ public class App {
         if (etudiants != null) {
             System.out.println(Utilitaire.MSG_AFFICHER_LISTE_EVALS + obtenirListeEvals());
         } else {
-            System.out.println(Utilitaire.MSG_ERR_CLASSE_INEXISTANTE);
+            System.out.println(Utilitaire.MSG_ERR_GRILLE_EVAL_INEXISTANTE);
         }
     }
 
@@ -263,7 +259,10 @@ public class App {
      */
     private static String obtenirListeEtudiants() {
         // TODO : à implémenter
+        String etudiant = "";
         String listeEtudiant = "";
+        String entete = Utilitaire.ENTETE_LISTE_ETUDIANTS;
+
 
         for(int i = 0; i < etudiants.length-1;i++){//check genererStatsEtudiants()
             String nomComplet = Utilitaire.recupererNomComplet(etudiants,i); //Recupere les infos de l'etudiant sur une seul ligne de String
@@ -271,10 +270,12 @@ public class App {
             String nom = nomEnPartie[0]; // Recupere leurs valeurs
             String prenom = nomEnPartie[1];
             String code = nomEnPartie[2];
-            listeEtudiant += String.format(Utilitaire.FORMAT_COLLONNES_LISTE_ETUDIANTS,code,nom,prenom);
+            etudiant += String.format(Utilitaire.FORMAT_COLLONNES_LISTE_ETUDIANTS,code,nom,prenom);
         }
+        listeEtudiant = Utilitaire.assemblerTableau(entete,etudiant);
 
-        
+
+
         return listeEtudiant;
     }
 
@@ -285,8 +286,16 @@ public class App {
      */
     private static String obtenirListeEvals() {
         // TODO : à implémenter
+        String evaluation = "";
+        String listeEvaluation = "";
+        final String entete = Utilitaire.ENTETE_LISTE_EVALS;
 
-        return null;
+        for(int i = 0; i < evals.length;i++){
+            evaluation += String.format(Utilitaire.FORMAT_COLLONNES_LISTE_EVALS,i+1,evals[i],ponderations[i]);
+        }
+        listeEvaluation = Utilitaire.assemblerTableau(entete,evaluation);
+
+        return listeEvaluation;
     }
 
     /**

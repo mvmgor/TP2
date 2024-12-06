@@ -58,7 +58,7 @@ public class Utilitaire {
     public static final String ENTETE_STATS_ETUDIANTS = "\n|          Nom et prénom         | Meilleure note |    Pire note   | Moyenne | Résultat |";
     public static final String ENTETE_LISTE_EVALS = "\n| # éval |  Nom évaluation   | Pondération |";
     public static final String FORMAT_COLLONNES_LISTE_EVALS = "\n| %-6d | %-17s | %10d%% |";
-    public static final String ENTETE_LISTE_ETUDIANTS = "\n| Code étudiant |        Nom        |       prenom      |";
+    public static final String ENTETE_LISTE_ETUDIANTS = "\n| Code étudiant |        Nom        |       Prénom      |";
     public static final String FORMAT_COLLONNES_LISTE_ETUDIANTS = "\n| %-13s | %-17s | %-17s |";
     public static final String FORMAT_COLLONNES_STATS_ETUDIANTS = "\n| %-30s | %14.2f | %14.2f | %7.2f | %8s |";
     public static final String MSG_AFFICHER_STATS = "Les résultats de la classe sont : \n";

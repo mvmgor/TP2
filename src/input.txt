@@ -1,5 +1,15 @@
 1
 2
-Marvin_Orellana
-Khaled_Abou
+Orellana_Marvin
+Abhou_Khaled
+
+2
+3
+TP1
+30
+TP2
+30
+Exam
+40
+
 3

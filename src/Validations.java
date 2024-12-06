@@ -34,22 +34,28 @@ public class Validations {
 
     public static int validerNombre(String message, int borneInf, int borneSup) {
         // TODO : à implémenter
-        try {
-            System.out.printf(message,borneInf,borneSup);
-            int nombre = sc.nextInt();
-            sc.nextLine();
-            if( nombre < borneInf || nombre > borneSup) {
-                System.out.println(Utilitaire.MSG_ERR_OPTION_INVALIDE);
-                return 0;
+        boolean validateur = false;
+        int nombre = 0;
+        do {
+            try {
+                System.out.printf(message,borneInf,borneSup);
+                nombre = sc.nextInt();
+                sc.nextLine();
+                if( nombre < borneInf || nombre > borneSup) {
+                    System.out.println(Utilitaire.MSG_ERR_OPTION_INVALIDE);
+                    validateur = true;
+                }
+                else{
+                    return nombre;
+                }
+            } catch(InputMismatchException e){
+                System.out.println(Utilitaire.MSG_ERR_SAISIE_NUMERIQUE);
+                sc.next();
             }
-            else{
-                return nombre;
-            }
-        } catch(InputMismatchException e){
-            System.out.println(Utilitaire.MSG_ERR_SAISIE_NUMERIQUE);
-            sc.next();
-            return 0;
-        }
+
+        }while (validateur == true);
+
+        return nombre;
     }
 
     /**

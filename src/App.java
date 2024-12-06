@@ -186,7 +186,24 @@ public class App {
      */
     private static void entrerResultats() {
         // TODO : à implémenter
-
+        char option ;
+        option = Validations.validerLettre(Utilitaire.MENU_ENTRER_NOTES,Utilitaire.MSG_ERR_OPTION_INVALIDE,Utilitaire.OPTIONS_ENTREE_NOTES);
+        switch (option){
+            case 'a':
+                saisirNotesEtudiants();
+            break;
+            case 'e':
+                entrerNotesParEtudiant();
+            break;
+            case 'v':
+                entrerNotesParEvaluation();
+            break;
+            case 'n':
+                saisirNotesDuneEvaluationDunEtudiant();
+            break;
+            default:
+                demarrerProgramme(); //Prendre le code du main??
+        }
     }
 
     /**

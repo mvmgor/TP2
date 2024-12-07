@@ -151,16 +151,28 @@ public class Validations {
         String entree = "";
         boolean estValide = false;
         String[] entreeSplitee;
-        float[] notes = null;
+        float[] notes = new float[nbrEvals];
 
         do {
             // TODO : à implémenter
+            System.out.printf(message,type,element);
+            entree = sc.nextLine().trim();
             try {
                 // TODO : à implémenter
-            } catch (NumberFormatException e) {
+                entreeSplitee = entree.split(" ");
+                if(entreeSplitee.length != nbrEvals){
+                    throw new IllegalArgumentException();
+                }
+                for(int i = 0; i < notes.length; i++){
+                    notes[i] = Float.parseFloat(entreeSplitee[i]);
+                }
+
+            }catch (NumberFormatException e) {
                 System.out.println(Utilitaire.MSG_ERR_FORMAT_NOTES);
+            }catch (IllegalArgumentException e) {
+                System.out.println(msgErreur);
             }
-        } while (!estValide);
+        }while (!estValide);
 
         return notes;
     }

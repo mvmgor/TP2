@@ -186,6 +186,8 @@ public class App {
      */
     private static void entrerResultats() {
         // TODO : à implémenter
+        notes = new float[nbrEtudiants][nbrEvals];
+
         char option ;
         option = Validations.validerLettre(Utilitaire.MENU_ENTRER_NOTES,Utilitaire.MSG_ERR_OPTION_INVALIDE,Utilitaire.OPTIONS_ENTREE_NOTES);
         switch (option){
@@ -358,7 +360,7 @@ public class App {
      */
     private static void saisirNotesEtudiants() {
         char choix = Validations.validerLettre(Utilitaire.MENU_ENTRER_NOTES_ETUDIANTS, 
-                    Utilitaire.MSG_ERR_ENTRER_NOTES, Utilitaire.OPTIONS_ENTREE_NOTES_TOUS_ETUDIANTS);
+                    Utilitaire.MSG_ERR_OPTION_INVALIDE, Utilitaire.OPTIONS_ENTREE_NOTES_TOUS_ETUDIANTS);
         // TODO : à implémenter
         switch (choix) {
             case 'e':
@@ -456,7 +458,6 @@ public class App {
      */
     private static void saisirNotesDuneEvaluation() {
         // TODO : à implémenter
-        notes = new float[nbrEtudiants][nbrEvals];
 
 
     }
@@ -484,13 +485,16 @@ public class App {
      */
     private static void entrerNotesParEtudiant() {
         // TODO : à implémenter
-        String noteSaisie = "";
-        String lesEvaluations = Utilitaire.afficherElementsListeSurUneLigne(evals);
-        System.out.printf(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS, Utilitaire.EVALUATION,Utilitaire.ETUDIANT);
-        System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS,lesEvaluations);
-        noteSaisie = Validations.validerNote()
+        float[] listeNotes = new float [nbrEvals];
+        System.out.printf(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS, Utilitaire.EVALUATION, Utilitaire.ETUDIANT);
+        System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
 
-
+        int i;
+        for (i = 0; i < notes.length; i++) {
+            listeNotes = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES, Utilitaire.ETUDIANT,
+                    Utilitaire.recupererNomComplet(etudiants, i), Utilitaire.MSG_ERR_ENTRER_NOTES, nbrEvals);
+            notes[i] = listeNotes;
+        }
     }
 
     /**

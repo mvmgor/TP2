@@ -324,8 +324,21 @@ public class Validations {
      */
     public static float validerNote(String nomEval) {
         float note = -1;
+        float noteSaisi;
 
         // TODO : à implémenter
+        do {
+            try{
+                System.out.printf(Utilitaire.MSG_ENTRER_NOTE,nomEval);
+                noteSaisi = Float.parseFloat(sc.nextLine().trim());
+                note = noteSaisi;
+
+            }catch (NumberFormatException e){
+                System.out.println(Utilitaire.MSG_ERR_FORMAT_NOTES);
+            }
+
+
+        }while (note == -1);
 
         return note;
     }

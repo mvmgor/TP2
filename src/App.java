@@ -454,7 +454,9 @@ public class App {
         String MSG_ERR_NB_ETUDIANT = "Le nombre de notes saisies ne correspond pas au nombre d'étudiant..";
         int posEval = Validations.validerNumEval(nbrEvals);
         float[] listeNote = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES,Utilitaire.EVALUATION,evals[posEval-1],MSG_ERR_NB_ETUDIANT,nbrEtudiants);
-
+        for(int i = 0; i < nbrEtudiants; i++){
+            notes[i][posEval-1]= listeNote[i];
+        }
 
     }
 

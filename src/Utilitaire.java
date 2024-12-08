@@ -41,7 +41,7 @@ public class Utilitaire {
     public static final String MSG_ERR_OPTION_INVALIDE = "Option invalide!";
     public static final String MSG_ERR_FORMAT_NOTES = "Une entrée n'est pas valide. Assurer vous que les fractions sont séparées par ',' ou non '.'";
     public static final String MSG_ENTRER_NOTES_ETUDIANTS = "Veuillez entrer les notes des %ss de chaque %s selon leur ordre, séparées par des espaces.\n";
-    public static final String MSG_ENTRER_NOTE = "Veuillez entrer la note de l'évaluation : ";
+    public static final String MSG_ENTRER_NOTE = "Veuillez entrer la note de l'évaluation %s : ";
     public static final String MSG_ENTRER_NOTES = "Les notes de l'%s %s (séparées par des espaces) sont : \n";
     public static final String MSG_ERR_ENTRER_NOTES = "Le nombre de notes saisies ne correspond pas au nombre des évaluations.";
     public static final String MSG_AFFICHAGE_EVALS = "Les évaluations sont : %s\n";

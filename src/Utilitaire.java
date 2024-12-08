@@ -101,14 +101,22 @@ public class Utilitaire {
     }
 
     public static float[] parseStringListToFloatList(String[] liste) throws NumberFormatException {
-        return null;
+        float[] listeEnFloat = new float[liste.length];
+        try{
+           for(int i = 0; i < liste.length; i++){
+               listeEnFloat[i] = Float.parseFloat(liste[i]);
+           }
+       }catch (NumberFormatException e){
+            throw new NumberFormatException();
+        }
+        return listeEnFloat;
     }
 
     public static String recupererNomComplet(String[][] etudiants, int posEtudiant) {
 
-        String nom = etudiants[0][posEtudiant];
-        String prenom = etudiants[1][posEtudiant];
-        String code = etudiants[2][posEtudiant];
+        String nom = etudiants[posEtudiant][0];
+        String prenom = etudiants[posEtudiant][1];
+        String code = etudiants[posEtudiant][2];
 
         String info = String.format("%s %s %s",nom, prenom,code);
 

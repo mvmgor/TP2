@@ -121,7 +121,7 @@ public class App {
      */
     public static void creerClasseEtudiants() throws NombreEtudiantsDepasseCapaciteException {
         nbrEtudiants = Validations.validerNbrEtudiants();
-        etudiants = new String[3][nbrEtudiants];
+        etudiants = new String[nbrEtudiants][3];
         entrerNomsEtudiants();
     }
 
@@ -283,7 +283,7 @@ public class App {
         String entete = Utilitaire.ENTETE_LISTE_ETUDIANTS;
 
 
-        for(int i = 0; i < etudiants.length-1;i++){//check genererStatsEtudiants()
+        for(int i = 0; i < etudiants.length;i++){//check genererStatsEtudiants()
             String nomComplet = Utilitaire.recupererNomComplet(etudiants,i); //Recupere les infos de l'etudiant sur une seul ligne de String
             String[] nomEnPartie = nomComplet.split(" ");// fait un tableau et separe nomComplet avec .split
             String nom = nomEnPartie[0]; // Recupere leurs valeurs
@@ -341,9 +341,9 @@ public class App {
         int i ;
         for(i = 0; i < nbrEtudiants; i++){
             String [] prenomsNoms = Validations.validerNomEtudiant(Utilitaire.MSG_SAISIE_NOM_ETUDIANT,i);
-            etudiants[0][i] = prenomsNoms[0];
-            etudiants[1][i] = prenomsNoms[1];
-            etudiants[2][i] = Utilitaire.genererCodeEtudiant(prenomsNoms[0],prenomsNoms[1]);
+            etudiants[i][0] = prenomsNoms[0];
+            etudiants[i][1] = prenomsNoms[1];
+            etudiants[i][2] = Utilitaire.genererCodeEtudiant(prenomsNoms[0],prenomsNoms[1]);
         }
     }
 
@@ -381,7 +381,9 @@ public class App {
         String resultats = "";
 
         for (int i = 0; i < nbrEtudiants; i++) {
-            resultats += String.format("\n| %-30s |", Utilitaire.recupererNomComplet(etudiants, i));
+            String[] nomComplet = Utilitaire.recupererNomComplet(etudiants, i).split(" ");
+            String nomPrenom = String.format("%s %s",nomComplet[0],nomComplet[1]);
+            resultats += String.format("\n| %-30s |", nomPrenom);
             for (int j = 0; j < nbrEvals; j++) {
                 resultats += String.format(" %15.2f |", notes[i][j]);
             }

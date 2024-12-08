@@ -162,16 +162,14 @@ public class Validations {
                 if(entreeSplitee.length != nbrEvals){
                     throw new IllegalArgumentException();
                 }
-                for(int i = 0; i < nbrEvals; i++){
-                    notes[i] = Float.parseFloat(entreeSplitee[i]);
-                   // notes[i] = Utilitaire.parseStringListToFloatList(entreeSplitee);
-                }
+
+                notes = Utilitaire.parseStringListToFloatList(entreeSplitee);
                 estValide = true;
 
             }catch (NumberFormatException e) {
-                System.out.println(Utilitaire.MSG_ERR_FORMAT_NOTES);
-            }catch (IllegalArgumentException e) {
-                System.out.println(msgErreur);
+                System.out.println(Utilitaire.MSG_ERR_FORMAT_NOTES); // Pour valider qu'il s'agit d'un float
+            }catch (IllegalArgumentException e) { // Pour valider que entreSplitee respecte le nombre d'evalutation
+                System.out.println(msgErreur);// J'ai corrigé le code
             }
         }while (!estValide);
 
@@ -236,18 +234,18 @@ public class Validations {
         // TODO : à implémenter
         int compteurCharacter = 0;
         int compteurNumerique = 0;
-        boolean validation = true;
+        boolean validation = false;
 
         for(int i = 0; i < code.length();i++){
             char lettre = code.charAt(i);
             if(Character.isLetter(lettre) && i < 4){
                 compteurCharacter++;
-            }else if(Character.isDigit(lettre) && i >= 4){
+            }else if(Character.isDigit(lettre) && i >= 4 && i < 9){
                 compteurNumerique++;
             }
         }
         if(compteurCharacter == 4 && compteurNumerique == 5){
-            validation = false;
+            validation = true;
         }
 
         return validation;
@@ -291,7 +289,7 @@ public class Validations {
             }
         }
 
-        return indice;
+        return -1;
     }
 
     /** option 5 -> v

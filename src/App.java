@@ -204,16 +204,7 @@ public class App {
                 saisirNotesDuneEvaluationDunEtudiant();
             break;
             default:
-               // demarrerProgramme(); //Prendre le code du main??
-                try {
-                    demarrerProgramme();
-                } catch (NombreEtudiantsDepasseCapaciteException e) {
-                    System.out.println(e.getMessage());
-                } catch (SommePonderationsInvalideException e) {
-                    System.out.println(e.getMessage());
-                } finally {
-                    System.out.println(Utilitaire.MSG_QUITTER_PROGRAMME);
-                }
+               break;
         }
     }
 
@@ -346,6 +337,7 @@ public class App {
      */
     private static void entrerNomsEtudiants() {
         // TODO : à implémenter
+
         int i ;
         for(i = 0; i < nbrEtudiants; i++){
             String [] prenomsNoms = Validations.validerNomEtudiant(Utilitaire.MSG_SAISIE_NOM_ETUDIANT,i);
@@ -477,7 +469,17 @@ public class App {
      */
     private static void entrerNotesParEvaluation() {
         // TODO : à implémenter
-      //saisirNotesDuneEvaluation();
+        float[] listeNotes = new float[nbrEtudiants];
+        System.out.printf(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS,Utilitaire.ETUDIANT,Utilitaire.EVALUATION);
+        System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
+        int i;
+        String MSG_ERR_ENTRER_NOTE_PAR_EVALUATION = "Le nombre de notes saisies ne correspond pas au nombre d'étudiants";
+        for(i = 0;  i < nbrEvals; i++){
+            listeNotes = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES,Utilitaire.EVALUATION,evals[i],MSG_ERR_ENTRER_NOTE_PAR_EVALUATION,nbrEtudiants);
+            for(int j =0; j < listeNotes.length;j++){
+                notes[j][i] = listeNotes[j];
+            }
+        }
     }
 
     /**
@@ -490,7 +492,7 @@ public class App {
         System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
 
         int i;
-        for (i = 0; i < notes.length; i++) {
+        for (i = 0; i < nbrEtudiants; i++) {
             listeNotes = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES, Utilitaire.ETUDIANT,
                     Utilitaire.recupererNomComplet(etudiants, i), Utilitaire.MSG_ERR_ENTRER_NOTES, nbrEvals);
             notes[i] = listeNotes;

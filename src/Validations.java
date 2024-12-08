@@ -150,7 +150,7 @@ public class Validations {
         String entree = "";
         boolean estValide = false;
         String[] entreeSplitee;
-        float[] notes = new float[nbrEvals];
+        float[] listeNotes = new float[nbrEvals];
 
         do {
             // TODO : à implémenter
@@ -163,7 +163,7 @@ public class Validations {
                     throw new IllegalArgumentException();
                 }
 
-                notes = Utilitaire.parseStringListToFloatList(entreeSplitee);
+                listeNotes = Utilitaire.parseStringListToFloatList(entreeSplitee);
                 estValide = true;
 
             }catch (NumberFormatException e) {
@@ -173,7 +173,7 @@ public class Validations {
             }
         }while (!estValide);
 
-        return notes;
+        return listeNotes;
     }
 
     /**
@@ -288,6 +288,7 @@ public class Validations {
                 return indice;
             }
         }
+        System.out.printf(Utilitaire.MSG_ERR_CODE_ETUDIANT_INEXISTANT,code);
 
         return -1;
     }
@@ -300,8 +301,18 @@ public class Validations {
     public static int validerNumEval(int nbrEvals) {
         //option 5
         int numEval = -1;
+        int evalSaisi ;
 
         // TODO : à implémenter
+        do {
+            System.out.printf(Utilitaire.MSG_ENTRER_NUM_EVAL,Utilitaire.MIN_NBR_EVALS, nbrEvals);
+            evalSaisi = Integer.parseInt(sc.nextLine().trim());
+            if(evalSaisi >= Utilitaire.MIN_NBR_EVALS && evalSaisi <= nbrEvals){
+                numEval = evalSaisi;
+            }else {
+                System.out.println(Utilitaire.MSG_ERR_ENTRER_NUM_EVAL);
+            }
+        }while (numEval == -1);
 
         return numEval;
     }

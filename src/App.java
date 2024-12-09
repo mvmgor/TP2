@@ -453,9 +453,9 @@ public class App {
         // TODO : à implémenter
         String MSG_ERR_NB_ETUDIANT = "Le nombre de notes saisies ne correspond pas au nombre d'étudiant..";
         int posEval = Validations.validerNumEval(nbrEvals);
-        float[] listeNote = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES,Utilitaire.EVALUATION,evals[posEval-1],MSG_ERR_NB_ETUDIANT,nbrEtudiants);
+        float[] listeNoteDuneEvaluation = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES,Utilitaire.EVALUATION,evals[posEval-1],MSG_ERR_NB_ETUDIANT,nbrEtudiants);
         for(int i = 0; i < nbrEtudiants; i++){
-            notes[i][posEval-1]= listeNote[i];
+            notes[i][posEval-1]= listeNoteDuneEvaluation[i];
         }
 
     }
@@ -475,15 +475,15 @@ public class App {
      */
     private static void entrerNotesParEvaluation() {
         // TODO : à implémenter
-        float[] listeNotes = new float[nbrEtudiants];
+        float[] listeNotesEvaluation = new float[nbrEtudiants];
         System.out.printf(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS,Utilitaire.ETUDIANT,Utilitaire.EVALUATION);
         System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
         int i;
         String MSG_ERR_ENTRER_NOTE_PAR_EVALUATION = "Le nombre de notes saisies ne correspond pas au nombre d'étudiants";
         for(i = 0;  i < nbrEvals; i++){
-            listeNotes = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES,Utilitaire.EVALUATION,evals[i],MSG_ERR_ENTRER_NOTE_PAR_EVALUATION,nbrEtudiants);
-            for(int j =0; j < listeNotes.length;j++){
-                notes[j][i] = listeNotes[j];
+            listeNotesEvaluation = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES,Utilitaire.EVALUATION,evals[i],MSG_ERR_ENTRER_NOTE_PAR_EVALUATION,nbrEtudiants);
+            for(int j = 0; j < listeNotesEvaluation.length; j++){
+                notes[j][i] = listeNotesEvaluation[j];
             }
         }
     }
@@ -493,15 +493,15 @@ public class App {
      */
     private static void entrerNotesParEtudiant() {
         // TODO : à implémenter
-        float[] listeNotes = new float [nbrEvals];
+        float[] listeNotesParEtudiants = new float [nbrEvals];
         System.out.printf(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS, Utilitaire.EVALUATION, Utilitaire.ETUDIANT);
         System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
 
         int i;
         for (i = 0; i < nbrEtudiants; i++) {
-            listeNotes = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES, Utilitaire.ETUDIANT,
+            listeNotesParEtudiants = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES, Utilitaire.ETUDIANT,
                     Utilitaire.recupererNomComplet(etudiants, i), Utilitaire.MSG_ERR_ENTRER_NOTES, nbrEvals);
-            notes[i] = listeNotes;
+            notes[i] = listeNotesParEtudiants;
         }
     }
 
@@ -512,9 +512,9 @@ public class App {
         // TODO : à implémenter le code est complete, donnee par l'enseignante
         int posEtudiant = Validations.validerCodeEtudiant(etudiants);
         int posEval = Validations.validerNumEval(nbrEvals);
-        float note = Validations.validerNote(evals[posEval]);
+        float noteEtudiant = Validations.validerNote(evals[posEval-1]);
 
-        notes[posEtudiant][posEval] = note;
+        notes[posEtudiant][posEval] = noteEtudiant;
     }
 
 }

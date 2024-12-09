@@ -34,6 +34,10 @@ public class Statistiques {
      */
     public static float calculerMoyenne(float[] sommeMoyennes) {
         // TODO : à implémenter
+        float somme = 0;
+        for (float note : sommeMoyennes) {
+            somme += note;
+        }
         return 0;
     }
 
@@ -110,7 +114,12 @@ public class Statistiques {
      */
     public static int calculerSommePonderation(int[] ponderations){
         // TODO : à implémenter
-        return 0;
+        int sommePonderation = 0;
+        for(int i = 0; i < ponderations.length; i++){
+            sommePonderation += ponderations[i];
+        }
+
+        return sommePonderation;
     }
 
     /**

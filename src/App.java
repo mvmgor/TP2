@@ -122,6 +122,7 @@ public class App {
     public static void creerClasseEtudiants() throws NombreEtudiantsDepasseCapaciteException {
         nbrEtudiants = Validations.validerNbrEtudiants();
         etudiants = new String[nbrEtudiants][3];
+        notes = new float[nbrEtudiants][];
         entrerNomsEtudiants();
     }
 
@@ -141,16 +142,18 @@ public class App {
         evals = new String[nbrEvals];
         ponderations = new int[nbrEvals];
         int sommePonderation = 0;
-
-        for(int i = 0 ; i < evals.length;i++){
-            //String nomEval =
-            evals[i] = Validations.validerNomEval(i);
-            ponderations[i] = Validations.validerNombre(Utilitaire.MSG_SAISI_PONDERATION,Utilitaire.MIN_PONDERATION_EVAL,Utilitaire.MAX_PONDERATION_EVAL);
-            sommePonderation += ponderations[i];
-            if(sommePonderation > Utilitaire.MAX_PONDERATION_EVAL){
+        do{
+            for(int i = 0 ; i < evals.length;i++){
+                //String nomEval =
+                evals[i] = Validations.validerNomEval(i);
+                ponderations[i] = Validations.validerNombre(Utilitaire.MSG_SAISI_PONDERATION,Utilitaire.MIN_PONDERATION_EVAL,Utilitaire.MAX_PONDERATION_EVAL);
+            }
+            sommePonderation = Statistiques.calculerSommePonderation(ponderations);
+            if(sommePonderation > Utilitaire.MAX_PONDERATION_EVAL || sommePonderation < Utilitaire.MAX_PONDERATION_EVAL  ){
                 throw new SommePonderationsInvalideException();
             }
-        }
+
+        }while (sommePonderation != Utilitaire.MAX_PONDERATION_EVAL);
 
         // validation nom d'eval et entrer des noms dans le tableaux
 
@@ -186,8 +189,6 @@ public class App {
      */
     private static void entrerResultats() {
         // TODO : à implémenter
-        notes = new float[nbrEtudiants][nbrEvals];
-
         char option ;
         option = Validations.validerLettre(Utilitaire.MENU_ENTRER_NOTES,Utilitaire.MSG_ERR_OPTION_INVALIDE,Utilitaire.OPTIONS_ENTREE_NOTES);
         switch (option){
@@ -214,6 +215,34 @@ public class App {
      */
     private static void calculerResultats() {
         // TODO : à implémenter
+
+        //Moyenne Pondere
+        moyenneEtudiants = new float[nbrEtudiants];
+        for(int i = 0; i < nbrEtudiants;i++){
+            for(int j = 0; j < nbrEvals;j++){
+                moyenneEtudiants[i] += notes[i][j] * ponderations[j];
+            }
+        }
+
+        //Moyenne de chaque evals
+
+        /*for(int i = 0; i < nbrEvals;i++){
+            for(int j = 0; j < nbrEtudiants;j++){
+                moyenneEvals[i] =
+            }
+        }*/
+
+
+        //Moyenne general
+        Statistiques.calculerMoyenne(null);
+
+        //Note la plus faible par etudiant
+        Statistiques.trouverMin(null);
+        //Note la plus eleve par etudiant
+        Statistiques.trouverMax(null);
+
+
+
     }
 
     /**

@@ -1,5 +1,9 @@
 package src;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Utilitaire {
     public static final int PERMIERE_OPTION = 1;
     public static final int DERNIERE_OPTION = 11;
@@ -68,6 +72,9 @@ public class Utilitaire {
     public static final String NOM_FICHIER_RAPPORT_RESULTATS = "resultats.txt";
     public static final String NOM_FICHIER_RAPPORT_LISTE_ETUDIANTS = "liste_etudiants.txt";
     public static final String NOM_FICHIER_RAPPORT_LISTE_EVALS = "liste_evaluations.txt";
+
+    public static final String MSG_TRIAGE = " Comment voulez-vous trier les moyennes des étudiants? \n\tc. En ordre croissant\n\td.En ordre décroissant";
+    public static final String OPTION_TRIAGE = "cd";
 
     public Utilitaire() {
     }
@@ -140,5 +147,22 @@ public class Utilitaire {
     }
 
     public static void ecrireDansFichier(String nomFichier, String contenu) {
+        String chemin = "Rapports_option10/";
+
+        try {
+            File fichier = new File(chemin + nomFichier);
+
+            FileWriter myWriter = new FileWriter(nomFichier); // creer le writer
+            myWriter.write(contenu);
+            myWriter.close();
+            System.out.printf("Le fichier %s à compilé avec succès!",nomFichier);
+        } catch (IOException e) {
+            System.out.printf("Un erreur est survenu lors de la compilation du fichier %s",nomFichier);
+            e.printStackTrace();
+        }
     }
-}
+    }
+
+
+
+

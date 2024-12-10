@@ -70,7 +70,7 @@ public class App {
      * @Implementation d'un switch case qui redirige vers les methodes designe selon l'option choisie.
      */
     public static void appliquerOption(int option) throws NombreEtudiantsDepasseCapaciteException, SommePonderationsInvalideException {
-        // TODO : à implémenter // use booleans that validate that an option was completed prior to another
+        // TODO : à implémenter
         switch (option){
             case 1:
                 creerClasseEtudiants();
@@ -189,6 +189,9 @@ public class App {
      */
     private static void entrerResultats() {
         // TODO : à implémenter
+        if(etudiants == null || evals == null ){
+            System.out.println(Utilitaire.MSG_ERR_NOTES_INEXISTANTE);
+        }
         char option ;
         option = Validations.validerLettre(Utilitaire.MENU_ENTRER_NOTES,Utilitaire.MSG_ERR_OPTION_INVALIDE,Utilitaire.OPTIONS_ENTREE_NOTES);
         switch (option){
@@ -294,6 +297,15 @@ public class App {
      */
     private static void trierResultats() {
         // TODO: trier les tableau selon la moyenne des étudiants ('c' : croissant, 'd' : décroissant)
+        char option = Validations.validerLettre(Utilitaire.MSG_TRIAGE,Utilitaire.MSG_ERR_OPTION_INVALIDE,Utilitaire.OPTION_TRIAGE);
+        switch (option){
+            case 'c':
+
+            break;
+            case 'd':
+
+            break;
+        }
     }
 
     /**
@@ -303,6 +315,10 @@ public class App {
      */
     private static void creerRapportResultats() {
         // TODO : à implémenter ** Sur Github copy/paste
+        Utilitaire.ecrireDansFichier(Utilitaire.NOM_FICHIER_RAPPORT_LISTE_ETUDIANTS,obtenirListeEtudiants());
+        Utilitaire.ecrireDansFichier(Utilitaire.NOM_FICHIER_RAPPORT_LISTE_EVALS,obtenirListeEvals());
+        Utilitaire.ecrireDansFichier(Utilitaire.NOM_FICHIER_RAPPORT_RESULTATS,obtenirResultats());
+        Utilitaire.ecrireDansFichier(Utilitaire.NOM_FICHIER_RAPPORT_STATS,construireContenuResultat());
     }
 
     /**

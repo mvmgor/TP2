@@ -22,8 +22,12 @@ public class Statistiques {
      * @return Tableau des moyennes calculées.
      */
     public static float[] calculerMoyennes(float[] sommeNotes, int nombre) {
-        // TODO : à implémenter
-        return null;
+        // TODO : à implémente
+        float[] moyennes = new float[sommeNotes.length];
+        for (int i = 0; i < sommeNotes.length; i++) {
+            moyennes[i] = sommeNotes[i] / nombre;
+        }
+        return moyennes;
     }
 
     /**
@@ -38,7 +42,8 @@ public class Statistiques {
         for (float note : sommeMoyennes) {
             somme += note;
         }
-        return 0;
+        somme = somme/ sommeMoyennes.length;
+        return somme;
     }
 
     /**
@@ -49,7 +54,13 @@ public class Statistiques {
      */
     public static float trouverMax(float[] notes) {
         // TODO : à implémenter
-        return 0;
+        float max = notes[0];
+        for (int i = 1; i < notes.length; i++) {
+            if (notes[i] > max) {
+                max = notes[i];
+            }
+        }
+        return max;
     }
 
     /**
@@ -60,7 +71,13 @@ public class Statistiques {
      */
     public static float trouverMin(float[] notes) {
         // TODO : à implémenter
-        return 0;
+        float min = notes[0];
+        for (int i = 1; i < notes.length; i++) {
+            if (notes[i] < min) {
+                min = notes[i];
+            }
+        }
+        return min;
     }
 
     /**
@@ -90,7 +107,14 @@ public class Statistiques {
      */
     public static float[] calculerMinMaxNotesEval(float[][] notes, boolean plusGrande) {
         // TODO : à implémenter
-        return null;
+        float[] resultats = new float[notes.length];
+
+        for (int i = 0; i < notes.length; i++) {
+            float[] colonne = Utilitaire.extraireColonne(notes,i);
+            resultats[i] = plusGrande ? trouverMax(colonne) : trouverMin(colonne);
+        }
+
+        return resultats;
     }
 
     /**
@@ -103,7 +127,16 @@ public class Statistiques {
      */
     private static float[] calculerSommeNotesEvals(int nbrEvals, int nbrEtudiants, float[][] notes) {
         // TODO : à implémenter
-        return null;
+        float[] sommeEvals = new float[nbrEvals];
+
+        for(int i = 0; i < nbrEvals;i++){
+            float sommeEval = 0;
+            for(int j = 0; j < nbrEtudiants;j++){
+                sommeEval += notes[j][i];
+            }
+            sommeEvals[i] = sommeEval;
+        }
+        return sommeEvals;
     }
 
     /**
@@ -128,11 +161,20 @@ public class Statistiques {
      * @param nbrEvals     Nombre total d'évaluations.
      * @param nbrEtudiants Nombre total d'étudiants.
      * @param notes        Tableau 2D contenant les notes des étudiants.
+     * @param ponderations
      * @return Tableau contenant les sommes des notes pour chaque étudiant.
      */
-    private static float[] calculerSommeNotesEtudiants(int nbrEvals, int nbrEtudiants, float[][] notes) {
+    private static float[] calculerSommeNotesEtudiants(int nbrEvals, int nbrEtudiants, float[][] notes, int[] ponderations) {
         // TODO : à implémenter
-        return null;
+        float[] notesPonderee = new float[nbrEtudiants];
+        for (int i = 0; i < nbrEtudiants; i++) {
+            float somme = 0;
+            for (int j = 0; j < nbrEvals; j++) {
+                somme += notes[i][j] * ponderations[j];
+            }
+            notesPonderee[i] = somme;
+        }
+        return notesPonderee;
     }
 
     /**
@@ -152,15 +194,16 @@ public class Statistiques {
     /**
      * Calcule les moyennes des étudiants à partir de leurs notes.
      *
-     * @param nbrEvals     Nombre total d'évaluations.
-     * @param nbrEtudiants Nombre total d'étudiants.
-     * @param notes        Tableau 2D contenant les notes des étudiants.
+     * @param nbrEvals           Nombre total d'évaluations.
+     * @param nbrEtudiants       Nombre total d'étudiants.
+     * @param notes              Tableau 2D contenant les notes des étudiants.
+     * @param maxPonderationEval
      * @return Tableau des moyennes pour chaque étudiant.
      */
-    static float[] calculerMoyenneEtudiants(int nbrEvals, int nbrEtudiants, float[][] notes) {
-        float[] sommeNotes = calculerSommeNotesEtudiants(nbrEvals, nbrEtudiants, notes);
+    static float[] calculerMoyenneEtudiants(int nbrEvals, int nbrEtudiants, float[][] notes, int[] ponderations, int maxPonderationEval) {
+        float[] sommeNotes = calculerSommeNotesEtudiants(nbrEvals, nbrEtudiants, notes,ponderations);
 
-        return calculerMoyennes(sommeNotes, nbrEvals);
+        return calculerMoyennes(sommeNotes, maxPonderationEval);
     }
 
     /**

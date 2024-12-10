@@ -89,7 +89,11 @@ public class Utilitaire {
     }
 
     public static float[] extraireColonne(float[][] notes, int colonne) {
-        return null;
+        float[] colonneNotes = new float[notes.length];
+        for (int i = 0; i < notes.length; i++) {
+            colonneNotes[i] = notes[i][colonne];
+        }
+        return colonneNotes;
     }
 
     public static String afficherElementsListeSurUneLigne(String[] liste) {

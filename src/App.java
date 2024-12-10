@@ -138,7 +138,7 @@ public class App {
         // initialiser le tableau evals et le tableau ponderations avec la taille nbrEvals
         // boucle avec nbrEval itérations qui appelle validerNomEval() pour insérer les noms des evals
         // et validerNombre() la ponderation
-        nbrEvals = Validations.validerNombre(Utilitaire.MSG_ENTRER_NUM_EVAL,Utilitaire.MIN_NBR_EVALS, Utilitaire.MAX_NBR_EVALS);
+        nbrEvals = Validations.validerNombre(Utilitaire.MSG_SAISI_NBR_EVALS,Utilitaire.MIN_NBR_EVALS, Utilitaire.MAX_NBR_EVALS);
         evals = new String[nbrEvals];
         ponderations = new int[nbrEvals];
         int sommePonderation = 0;
@@ -215,31 +215,50 @@ public class App {
      */
     private static void calculerResultats() {
         // TODO : à implémenter
-
-        //Moyenne Pondere
-        moyenneEtudiants = new float[nbrEtudiants];
-        for(int i = 0; i < nbrEtudiants;i++){
-            for(int j = 0; j < nbrEvals;j++){
-                moyenneEtudiants[i] += notes[i][j] * ponderations[j];
-            }
-        }
+        //Moyenne etudiant
+        moyenneEtudiants = Statistiques.calculerMoyenneEtudiants(nbrEvals,nbrEtudiants,notes,ponderations,Utilitaire.MAX_PONDERATION_EVAL);
+//        float[] sommePondereeEtudiants = new float[nbrEtudiants];
+//
+//        for (int i = 0; i < nbrEtudiants; i++) {
+//            float sommePonderee = 0;
+//            for (int j = 0; j < nbrEvals; j++) {
+//                sommePonderee += notes[i][j] * ponderations[j];
+//            }
+//            sommePondereeEtudiants[i] = sommePonderee;
+//        }
+//        moyenneEtudiants = Statistiques.calculerMoyennes(sommePondereeEtudiants,Utilitaire.MAX_PONDERATION_EVAL);
 
         //Moyenne de chaque evals
+        moyenneEvals = Statistiques.calculerMoyenneEvals(nbrEvals,nbrEtudiants,notes);
 
-        /*for(int i = 0; i < nbrEvals;i++){
-            for(int j = 0; j < nbrEtudiants;j++){
-                moyenneEvals[i] =
-            }
-        }*/
-
+//        moyenneEvals = new float[nbrEvals];
+//        float[] sommeEvals = new float[nbrEvals];
+//
+//        for(int i = 0; i < nbrEvals;i++){
+//            float sommeEval = 0;
+//            for(int j = 0; j < nbrEtudiants;j++){
+//                sommeEval += notes[j][i];
+//            }
+//            sommeEvals[i] = sommeEval;
+//        }
+//        moyenneEvals = Statistiques.calculerMoyennes(sommeEvals,nbrEtudiants);
 
         //Moyenne general
-        Statistiques.calculerMoyenne(null);
+        moyenneClasse = Statistiques.calculerMoyenne(moyenneEvals);
 
-        //Note la plus faible par etudiant
-        Statistiques.trouverMin(null);
-        //Note la plus eleve par etudiant
-        Statistiques.trouverMax(null);
+        //trouver min/max etudiant
+        notesPlusFortesEtudiants = Statistiques.calculerMinMaxNotesEtudiants(notes,true);
+        notesPlusFaiblesEtudiants = Statistiques.calculerMinMaxNotesEtudiants(notes,false);
+
+        //trouver min/max etudiant
+        notesPlusFortesEvals = Statistiques.calculerMinMaxNotesEval(notes,true);
+        notesPlusFaiblesEvals = Statistiques.calculerMinMaxNotesEval(notes,false);
+
+        //etudiant succes
+        nbrEtudiantsSucces = Statistiques.calculerNombreEtudiantsSucces(moyenneEtudiants);
+
+        //sauvegarde des statistiques
+        sauvegarderStats(moyenneEvals,moyenneEtudiants,moyenneClasse,notesPlusFortesEtudiants,notesPlusFaiblesEtudiants,notesPlusFortesEvals,notesPlusFaiblesEvals,nbrEtudiantsSucces);
 
 
 
@@ -471,8 +490,12 @@ public class App {
      */
     private static String genererStatsEvals(float[] meilleuresNotes, float[] pireNotes, float[] moyennes) {
         // TODO : à implémenter
-
-        return null;
+        String donnees ="";
+        for (int i = 0; i < nbrEtudiants; i++) {
+            donnees += String.format(Utilitaire.FORMAT_COLLONNES_STATS_EVALS, evals[i], meilleuresNotes[i], pireNotes[i],
+                    moyennes[i]);
+        }
+        return Utilitaire.assemblerTableau(Utilitaire.ENTETE_STATS_EVALS, donnees);
     }
 
     /**

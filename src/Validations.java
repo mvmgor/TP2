@@ -53,7 +53,7 @@ public class Validations {
                 sc.nextLine();
             }
 
-        }while (validateur == true);
+        }while (validateur == false);
 
         return nombre;
     }

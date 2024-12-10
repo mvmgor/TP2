@@ -491,7 +491,7 @@ public class App {
     private static String genererStatsEvals(float[] meilleuresNotes, float[] pireNotes, float[] moyennes) {
         // TODO : à implémenter
         String donnees ="";
-        for (int i = 0; i < nbrEtudiants; i++) {
+        for (int i = 0; i < nbrEvals; i++) {
             donnees += String.format(Utilitaire.FORMAT_COLLONNES_STATS_EVALS, evals[i], meilleuresNotes[i], pireNotes[i],
                     moyennes[i]);
         }

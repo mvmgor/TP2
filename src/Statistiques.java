@@ -107,9 +107,9 @@ public class Statistiques {
      */
     public static float[] calculerMinMaxNotesEval(float[][] notes, boolean plusGrande) {
         // TODO : à implémenter
-        float[] resultats = new float[notes.length];
+        float[] resultats = new float[notes[0].length];
 
-        for (int i = 0; i < notes.length; i++) {
+        for (int i = 0; i < notes[0].length; i++) {
             float[] colonne = Utilitaire.extraireColonne(notes,i);
             resultats[i] = plusGrande ? trouverMax(colonne) : trouverMin(colonne);
         }
@@ -215,6 +215,12 @@ public class Statistiques {
      */
     static int calculerNombreEtudiantsSucces(float[] moyenneEtudiants){
         // TODO : à implémenter
-        return 0;
+        int nbSuccer =0;
+        for(float notePassage : moyenneEtudiants){
+            if(notePassage >= 50.0){
+                nbSuccer++;
+            }
+        }
+        return nbSuccer;
     }
 }

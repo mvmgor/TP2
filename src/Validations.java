@@ -39,8 +39,8 @@ public class Validations {
         do {
             try {
                 System.out.printf(message,borneInf,borneSup);
-                String input = sc.nextLine().trim();
-                nombre = Integer.parseInt(input);
+                String input = sc.nextLine().trim();//Prend la ligne complete et retire l'exces d'espace avec trim au besoin
+                nombre = Integer.parseInt(input);//Prend le string et le converti en entier
                 if( nombre < borneInf || nombre > borneSup) {
                     System.out.println(Utilitaire.MSG_ERR_OPTION_INVALIDE);
                     validateur = true;
@@ -48,7 +48,7 @@ public class Validations {
                 else{
                     return nombre;
                 }
-            } catch(InputMismatchException e){
+            } catch(InputMismatchException e){//Erreur thrown si le string ne peut etre parser, donc lorsqu'il ne s'agit d'un entier
                 System.out.println(Utilitaire.MSG_ERR_SAISIE_NUMERIQUE);
                 sc.nextLine();
             }
@@ -72,7 +72,7 @@ public class Validations {
                 System.out.println(Utilitaire.MSG_SAISIE_NBR_ETUDIANTS);
                 String input = sc.nextLine().trim();
                 nbEtudiant = Integer.parseInt(input);
-                if(nbEtudiant > Utilitaire.CAPACITE_MAX_CLASSE) {
+                if(nbEtudiant > Utilitaire.CAPACITE_MAX_CLASSE) {//valide que le nbEtudiant n'excede pas 30
                     throw new NombreEtudiantsDepasseCapaciteException(); // **Needs to end program**
                 } else if (nbEtudiant < Utilitaire.CAPACITE_MIN_CLASSE ) {
                     System.out.println(Utilitaire.MSG_ERR_NBR_INF_CAPACITE_MIN_CLASSE);
@@ -99,14 +99,13 @@ public class Validations {
         String nomEvaluation = null;
 
         do {
-            System.out.printf(Utilitaire.MSG_SAISI_NOM_EVAL,numEval+1);
+            System.out.printf(Utilitaire.MSG_SAISI_NOM_EVAL,numEval+1);//+1 pour ne pas retourner 0 pour la premiere eval
             nomEvaluation = sc.nextLine().trim();
 
             if(nomEvaluation.length() < Utilitaire.MIN_TAILLE_NOM_EVAL || nomEvaluation.length() > Utilitaire.MAX_TAILLE_NOM_EVAL){
                 System.out.println(Utilitaire.MSG_ERR_SAISI_NOM_EVAL);
                 nomEvaluation = null;
             }
-
         }while(nomEvaluation == null);
 
         return nomEvaluation;
@@ -127,7 +126,7 @@ public class Validations {
         do {
             System.out.println(message);
             entree = sc.nextLine().trim();
-            estValide = entree.length() == 1 && caracteresAcceptes.contains(entree.toLowerCase());
+            estValide = entree.length() == 1 && caracteresAcceptes.contains(entree.toLowerCase());//true if entre.length == 1 && si c'est un charactere qui faire partie de caracteresAcceptes
             if (!estValide) {
                 System.out.println(msgErreur);
             }
@@ -211,13 +210,13 @@ public class Validations {
             // TODO : à implémenter
             System.out.println(Utilitaire.MSG_ENTRER_CODE_ETUDIANT);
             String code = sc.nextLine().trim();
-            estValide = estFormatCodeValide(code);
+            estValide = estFormatCodeValide(code);//valide le format
 
             if (estValide) {
                 // TODO : à décommenter après l'implémentation du TODO précédent
-                posEtudiant = rechercherCodeEtudiant(etudiants, code);
+                posEtudiant = rechercherCodeEtudiant(etudiants, code);//recherche le code dans le tableau etudiant
             } else {
-                System.out.println(Utilitaire.MSG_FORMAT_CODE_ETUDIANT_INVALIDE);
+                System.out.println(Utilitaire.MSG_FORMAT_CODE_ETUDIANT_INVALIDE);//erreur si le format est invalide
             }
         } while (!estValide || posEtudiant == -1);
 
@@ -232,22 +231,13 @@ public class Validations {
      */
     private static boolean estFormatCodeValide(String code) {
         // TODO : à implémenter
-        int compteurCharacter = 0;
-        int compteurNumerique = 0;
+        boolean contientLettre = estChaineContientLettres(code.substring(0,4)); // ex: OREM12345, retourne OREM
+        boolean contientChiffre = estChaineContientChiffres(code.substring(4));// retourne 12345
         boolean validation = false;
 
-        for(int i = 0; i < code.length();i++){
-            char lettre = code.charAt(i);
-            if(Character.isLetter(lettre) && i < 4){
-                compteurCharacter++;
-            }else if(Character.isDigit(lettre) && i >= 4 && i < 9){
-                compteurNumerique++;
-            }
-        }
-        if(compteurCharacter == 4 && compteurNumerique == 5){
+        if(contientChiffre == true && contientLettre == true){//valide que les validations sont retourne true
             validation = true;
         }
-
         return validation;
     }
 
@@ -259,7 +249,15 @@ public class Validations {
      */
     public static boolean estChaineContientLettres(String lettres) {
         // TODO : à implémenter
-        return false;
+        boolean validation = true;
+
+        for(int i = 0; i < lettres.length();i++){
+            char lettre = lettres.charAt(i);
+            if(!Character.isLetter(lettre)){//du moment qu'un des char n'est pas une lettre validation = false
+                validation = false;
+            }
+        }
+        return validation;
     }
 
     /**
@@ -270,7 +268,15 @@ public class Validations {
      */
     public static boolean estChaineContientChiffres(String chiffres) {
         // TODO : à implémenter
-        return false;
+        boolean validation = true;
+
+        for(int i = 0; i < chiffres.length();i++){
+            char chiffre = chiffres.charAt(i);
+            if(!Character.isDigit(chiffre)){
+                validation = false;
+            }
+        }
+        return validation;
     }
 
     /**
@@ -284,13 +290,12 @@ public class Validations {
         // TODO : à implémenter
         int indice;
         for(indice = 0; indice < etudiants.length; indice++){
-            if(etudiants[indice][2].equals(code)){
-                return indice;
+            if(etudiants[indice][2].equals(code)){//itere sur le tableau a la recherche d'un match
+                return indice;// si true retourne son indice
             }
         }
-        System.out.printf(Utilitaire.MSG_ERR_CODE_ETUDIANT_INEXISTANT,code);
-
-        return -1;
+        System.out.printf(Utilitaire.MSG_ERR_CODE_ETUDIANT_INEXISTANT,code);//si false message d'erreur
+        return -1;// retourne -1 pour confirmer l'invalidite dans la methode qui appel celle-ci
     }
 
     /** option 5 -> v
@@ -302,18 +307,16 @@ public class Validations {
         //option 5
         int numEval = -1;
         int evalSaisi ;
-
         // TODO : à implémenter
         do {
             System.out.printf(Utilitaire.MSG_ENTRER_NUM_EVAL,Utilitaire.MIN_NBR_EVALS, nbrEvals);
-            evalSaisi = Integer.parseInt(sc.nextLine().trim());
+            evalSaisi = Integer.parseInt(sc.nextLine().trim());//parse en int directement le string entree, trim pour eviter des espaces
             if(evalSaisi >= Utilitaire.MIN_NBR_EVALS && evalSaisi <= nbrEvals){
                 numEval = evalSaisi;
             }else {
                 System.out.println(Utilitaire.MSG_ERR_ENTRER_NUM_EVAL);
             }
         }while (numEval == -1);
-
         return numEval;
     }
 
@@ -330,14 +333,11 @@ public class Validations {
         do {
             try{
                 System.out.printf(Utilitaire.MSG_ENTRER_NOTE,nomEval);
-                noteSaisi = Float.parseFloat(sc.nextLine().trim());
+                noteSaisi = Float.parseFloat(sc.nextLine().trim());//parse en int directement le string entree, trim pour eviter des espaces
                 note = noteSaisi;
-
             }catch (NumberFormatException e){
                 System.out.println(Utilitaire.MSG_ERR_FORMAT_NOTES);
             }
-
-
         }while (note == -1);
 
         return note;

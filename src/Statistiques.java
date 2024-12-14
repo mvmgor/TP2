@@ -25,7 +25,7 @@ public class Statistiques {
         // TODO : à implémente
         float[] moyennes = new float[sommeNotes.length];
         for (int i = 0; i < sommeNotes.length; i++) {
-            moyennes[i] = sommeNotes[i] / nombre;
+            moyennes[i] = sommeNotes[i] / nombre; // divise la note par 100 pour obtenir une moyenne pondere
         }
         return moyennes;
     }
@@ -129,9 +129,9 @@ public class Statistiques {
         // TODO : à implémenter
         float[] sommeEvals = new float[nbrEvals];
 
-        for(int i = 0; i < nbrEvals;i++){
+        for(int i = 0; i < nbrEvals;i++){//loop externe # eval
             float sommeEval = 0;
-            for(int j = 0; j < nbrEtudiants;j++){
+            for(int j = 0; j < nbrEtudiants;j++){//loop interne le nombre d'etudiant == nbDeNote par eval
                 sommeEval += notes[j][i];
             }
             sommeEvals[i] = sommeEval;
@@ -170,9 +170,9 @@ public class Statistiques {
         for (int i = 0; i < nbrEtudiants; i++) {
             float somme = 0;
             for (int j = 0; j < nbrEvals; j++) {
-                somme += notes[i][j] * ponderations[j];
+                somme += notes[i][j] * ponderations[j];//multiplie chaque note par la ponderation en position j
             }
-            notesPonderee[i] = somme;
+            notesPonderee[i] = somme;//retourne au tableau la note multiplier par la ponderation, elle est diviser dans une autre methode
         }
         return notesPonderee;
     }
@@ -201,7 +201,7 @@ public class Statistiques {
      * @return Tableau des moyennes pour chaque étudiant.
      */
     static float[] calculerMoyenneEtudiants(int nbrEvals, int nbrEtudiants, float[][] notes, int[] ponderations, int maxPonderationEval) {
-        float[] sommeNotes = calculerSommeNotesEtudiants(nbrEvals, nbrEtudiants, notes,ponderations);
+        float[] sommeNotes = calculerSommeNotesEtudiants(nbrEvals, nbrEtudiants, notes,ponderations);//ajout de la ponderation en parametre pour calculer reelememt la moyenne pondere
 
         return calculerMoyennes(sommeNotes, maxPonderationEval);
     }

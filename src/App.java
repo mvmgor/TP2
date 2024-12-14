@@ -57,8 +57,6 @@ public class App {
             Utilitaire.DERNIERE_OPTION);
             appliquerOption(option);
         } while (option != Utilitaire.DERNIERE_OPTION);
-
-
     }
 
     /**
@@ -145,18 +143,14 @@ public class App {
         do{
             for(int i = 0 ; i < evals.length;i++){
                 //String nomEval =
-                evals[i] = Validations.validerNomEval(i);
-                ponderations[i] = Validations.validerNombre(Utilitaire.MSG_SAISI_PONDERATION,Utilitaire.MIN_PONDERATION_EVAL,Utilitaire.MAX_PONDERATION_EVAL);
+                evals[i] = Validations.validerNomEval(i);//valide le nom
+                ponderations[i] = Validations.validerNombre(Utilitaire.MSG_SAISI_PONDERATION,Utilitaire.MIN_PONDERATION_EVAL,Utilitaire.MAX_PONDERATION_EVAL);//valide que la ponderation soit un int
             }
-            sommePonderation = Statistiques.calculerSommePonderation(ponderations);
-            if(sommePonderation > Utilitaire.MAX_PONDERATION_EVAL || sommePonderation < Utilitaire.MAX_PONDERATION_EVAL  ){
+            sommePonderation = Statistiques.calculerSommePonderation(ponderations);// calcule la somme de ponderation
+            if(sommePonderation > Utilitaire.MAX_PONDERATION_EVAL || sommePonderation < Utilitaire.MAX_PONDERATION_EVAL  ){//throw l'erreur si ponderation <100
                 throw new SommePonderationsInvalideException();
             }
-
         }while (sommePonderation != Utilitaire.MAX_PONDERATION_EVAL);
-
-        // validation nom d'eval et entrer des noms dans le tableaux
-
     }
 
     /**
@@ -220,51 +214,20 @@ public class App {
         // TODO : à implémenter
         //Moyenne etudiant
         moyenneEtudiants = Statistiques.calculerMoyenneEtudiants(nbrEvals,nbrEtudiants,notes,ponderations,Utilitaire.MAX_PONDERATION_EVAL);
-//        float[] sommePondereeEtudiants = new float[nbrEtudiants];
-//
-//        for (int i = 0; i < nbrEtudiants; i++) {
-//            float sommePonderee = 0;
-//            for (int j = 0; j < nbrEvals; j++) {
-//                sommePonderee += notes[i][j] * ponderations[j];
-//            }
-//            sommePondereeEtudiants[i] = sommePonderee;
-//        }
-//        moyenneEtudiants = Statistiques.calculerMoyennes(sommePondereeEtudiants,Utilitaire.MAX_PONDERATION_EVAL);
-
         //Moyenne de chaque evals
         moyenneEvals = Statistiques.calculerMoyenneEvals(nbrEvals,nbrEtudiants,notes);
-
-//        moyenneEvals = new float[nbrEvals];
-//        float[] sommeEvals = new float[nbrEvals];
-//
-//        for(int i = 0; i < nbrEvals;i++){
-//            float sommeEval = 0;
-//            for(int j = 0; j < nbrEtudiants;j++){
-//                sommeEval += notes[j][i];
-//            }
-//            sommeEvals[i] = sommeEval;
-//        }
-//        moyenneEvals = Statistiques.calculerMoyennes(sommeEvals,nbrEtudiants);
-
         //Moyenne general
         moyenneClasse = Statistiques.calculerMoyenne(moyenneEvals);
-
         //trouver min/max etudiant
         notesPlusFortesEtudiants = Statistiques.calculerMinMaxNotesEtudiants(notes,true);
         notesPlusFaiblesEtudiants = Statistiques.calculerMinMaxNotesEtudiants(notes,false);
-
         //trouver min/max etudiant
         notesPlusFortesEvals = Statistiques.calculerMinMaxNotesEval(notes,true);
         notesPlusFaiblesEvals = Statistiques.calculerMinMaxNotesEval(notes,false);
-
         //etudiant succes
         nbrEtudiantsSucces = Statistiques.calculerNombreEtudiantsSucces(moyenneEtudiants);
-
         //sauvegarde des statistiques
         sauvegarderStats(moyenneEvals,moyenneEtudiants,moyenneClasse,notesPlusFortesEtudiants,notesPlusFaiblesEtudiants,notesPlusFortesEvals,notesPlusFaiblesEvals,nbrEtudiantsSucces);
-
-
-
     }
 
     /**
@@ -298,14 +261,12 @@ public class App {
     private static void trierResultats() {
         // TODO: trier les tableau selon la moyenne des étudiants ('c' : croissant, 'd' : décroissant)
         char option = Validations.validerLettre(Utilitaire.MSG_TRIAGE,Utilitaire.MSG_ERR_OPTION_INVALIDE,Utilitaire.OPTION_TRIAGE);
-        switch (option){
-            case 'c':
-
-            break;
-            case 'd':
-
-            break;
-        }
+//        switch (option){
+//            case 'c':
+//            break;
+//            case 'd':
+//            break;
+//        }
     }
 
     /**
@@ -315,14 +276,13 @@ public class App {
      */
     private static void creerRapportResultats() {
         // TODO : à implémenter ** Sur Github copy/paste
-        if(moyenneEtudiants == null){
-            System.out.println("Veuillez calculer les résultats avec l'option 6!");
+        if(moyenneEtudiants == null){//validation d'une etape precedente
+            System.out.println("Veuillez calculer les résultats avec l'option 6!");// message custom
         }else{
-            Utilitaire.ecrireDansFichier(Utilitaire.NOM_FICHIER_RAPPORT_LISTE_ETUDIANTS,obtenirListeEtudiants());
+            Utilitaire.ecrireDansFichier(Utilitaire.NOM_FICHIER_RAPPORT_LISTE_ETUDIANTS,obtenirListeEtudiants());//contenu est le retour de la methode
             Utilitaire.ecrireDansFichier(Utilitaire.NOM_FICHIER_RAPPORT_LISTE_EVALS,obtenirListeEvals());
             Utilitaire.ecrireDansFichier(Utilitaire.NOM_FICHIER_RAPPORT_RESULTATS,obtenirResultats());
-            Utilitaire.ecrireDansFichier(Utilitaire.NOM_FICHIER_RAPPORT_STATS,stats);
-
+            Utilitaire.ecrireDansFichier(Utilitaire.NOM_FICHIER_RAPPORT_STATS,stats);//le contenu est stats
         }
     }
 
@@ -332,8 +292,8 @@ public class App {
      */
     private static void quitterProgramme() {
         // TODO : à implémenter
+        Validations.sc.close();//ferme le scanner comme si elle serait une methode
         System.out.println(Utilitaire.MSG_QUITTER_PROGRAMME);
-
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -351,7 +311,6 @@ public class App {
         String listeEtudiant = "";
         String entete = Utilitaire.ENTETE_LISTE_ETUDIANTS;
 
-
         for(int i = 0; i < etudiants.length;i++){//check genererStatsEtudiants()
             String nomComplet = Utilitaire.recupererNomComplet(etudiants,i); //Recupere les infos de l'etudiant sur une seul ligne de String
             String[] nomEnPartie = nomComplet.split(" ");// fait un tableau et separe nomComplet avec .split
@@ -361,9 +320,6 @@ public class App {
             etudiant += String.format(Utilitaire.FORMAT_COLLONNES_LISTE_ETUDIANTS,code,nom,prenom);
         }
         listeEtudiant = Utilitaire.assemblerTableau(entete,etudiant);
-
-
-
         return listeEtudiant;
     }
 
@@ -382,7 +338,6 @@ public class App {
             evaluation += String.format(Utilitaire.FORMAT_COLLONNES_LISTE_EVALS,i+1,evals[i],ponderations[i]);
         }
         listeEvaluation = Utilitaire.assemblerTableau(entete,evaluation);
-
         return listeEvaluation;
     }
 
@@ -397,7 +352,6 @@ public class App {
         for (String eval : evals) {
             entete += String.format(" %15s |", eval);
         }
-
         return Utilitaire.assemblerTableau(entete, construireContenuResultat());
     }
 
@@ -405,14 +359,12 @@ public class App {
      * Demande à l'utilisateur de saisir les noms des étudiants et génère leurs codes uniques.
      */
     private static void entrerNomsEtudiants() {
-        // TODO : à implémenter
-
         int i ;
         for(i = 0; i < nbrEtudiants; i++){
-            String [] prenomsNoms = Validations.validerNomEtudiant(Utilitaire.MSG_SAISIE_NOM_ETUDIANT,i);
-            etudiants[i][0] = prenomsNoms[0];
-            etudiants[i][1] = prenomsNoms[1];
-            etudiants[i][2] = Utilitaire.genererCodeEtudiant(prenomsNoms[0],prenomsNoms[1]);
+            String [] prenomsNoms = Validations.validerNomEtudiant(Utilitaire.MSG_SAISIE_NOM_ETUDIANT,i);// retourne un tableau 1D de deux cellules avec 0.Nom et 1.Prenom
+            etudiants[i][0] = prenomsNoms[0];//assigne le nom
+            etudiants[i][1] = prenomsNoms[1];//assigne le prenom
+            etudiants[i][2] = Utilitaire.genererCodeEtudiant(prenomsNoms[0],prenomsNoms[1]);//assigne le code permanent
         }
     }
 
@@ -422,12 +374,9 @@ public class App {
     private static void saisirNotesEtudiants() {
         char choix = Validations.validerLettre(Utilitaire.MENU_ENTRER_NOTES_ETUDIANTS, 
                     Utilitaire.MSG_ERR_OPTION_INVALIDE, Utilitaire.OPTIONS_ENTREE_NOTES_TOUS_ETUDIANTS);
-        // TODO : à implémenter
         switch (choix) {
             case 'e':
                 entrerNotesParEtudiant();
-               // System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
-                //int notes = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS,Utilitaire.ETUDIANT, Utilitaire.EVALUATION,);
                 break;
             case 'v':
                 entrerNotesParEvaluation();
@@ -435,8 +384,6 @@ public class App {
             case 'r':
                 break;
             default:
-
-
         }
     }
 
@@ -450,9 +397,9 @@ public class App {
 
         for (int i = 0; i < nbrEtudiants; i++) {
             String[] nomComplet = Utilitaire.recupererNomComplet(etudiants, i).split(" ");
-            String nomPrenom = String.format("%s %s",nomComplet[0],nomComplet[1]);
+            String nomPrenom = String.format("%s %s",nomComplet[0],nomComplet[1]);//formattage avec le contenue du tableau
             resultats += String.format("\n| %-30s |", nomPrenom);
-            for (int j = 0; j < nbrEvals; j++) {
+            for (int j = 0; j < nbrEvals; j++) {//loop pour repeter le processus selon le nombre d'eval
                 resultats += String.format(" %15.2f |", notes[i][j]);
             }
         }
@@ -524,7 +471,7 @@ public class App {
      */
     private static void saisirNotesDuneEvaluation() {
         // TODO : à implémenter
-        String MSG_ERR_NB_ETUDIANT = "Le nombre de notes saisies ne correspond pas au nombre d'étudiant..";
+        String MSG_ERR_NB_ETUDIANT = "Le nombre de notes saisies ne correspond pas au nombre d'étudiant..";//Message custom pour la validation du nombre de donnee saisie
         int posEval = Validations.validerNumEval(nbrEvals);
         float[] listeNoteDuneEvaluation = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES,Utilitaire.EVALUATION,evals[posEval-1],MSG_ERR_NB_ETUDIANT,nbrEtudiants);
         for(int i = 0; i < nbrEtudiants; i++){
@@ -537,7 +484,7 @@ public class App {
      * Permet de saisir les notes pour un étudiant spécifique.
      */
     private static void saisirNotesDunEtudiant() {
-        int posEtudiant = Validations.validerCodeEtudiant(etudiants);
+        int posEtudiant = Validations.validerCodeEtudiant(etudiants);// valide le cote d'etudiant entrer par l'utilisateur
         notes[posEtudiant] = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES, Utilitaire.ETUDIANT,
                 Utilitaire.recupererNomComplet(etudiants, posEtudiant), Utilitaire.MSG_ERR_ENTRER_NOTES, nbrEvals);
 
@@ -552,9 +499,10 @@ public class App {
         System.out.printf(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS,Utilitaire.ETUDIANT,Utilitaire.EVALUATION);
         System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
         int i;
-        String MSG_ERR_ENTRER_NOTE_PAR_EVALUATION = "Le nombre de notes saisies ne correspond pas au nombre d'étudiants";
+        String MSG_ERR_ENTRER_NOTE_PAR_EVALUATION = "Le nombre de notes saisies ne correspond pas au nombre d'étudiants";// validation au cas que le nb d'entrer != nbEtudiant
+
         for(i = 0;  i < nbrEvals; i++){
-            listeNotesEvaluation = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES,Utilitaire.EVALUATION,evals[i],MSG_ERR_ENTRER_NOTE_PAR_EVALUATION,nbrEtudiants);
+            listeNotesEvaluation = Validations.validerNotes(Utilitaire.MSG_ENTRER_NOTES,Utilitaire.EVALUATION,evals[i],MSG_ERR_ENTRER_NOTE_PAR_EVALUATION,nbrEtudiants);// valide que les notes soit de float
             for(int j = 0; j < listeNotesEvaluation.length; j++){
                 notes[j][i] = listeNotesEvaluation[j];
             }
@@ -566,9 +514,9 @@ public class App {
      */
     private static void entrerNotesParEtudiant() {
         // TODO : à implémenter
-        float[] listeNotesParEtudiants = new float [nbrEvals];
+        float[] listeNotesParEtudiants = new float [nbrEvals]; // l'entrer de note == le nbrEval
         System.out.printf(Utilitaire.MSG_ENTRER_NOTES_ETUDIANTS, Utilitaire.EVALUATION, Utilitaire.ETUDIANT);
-        System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));
+        System.out.printf(Utilitaire.MSG_AFFICHAGE_EVALS, Utilitaire.afficherElementsListeSurUneLigne(evals));// affiche les noms de Evals
 
         int i;
         for (i = 0; i < nbrEtudiants; i++) {
@@ -582,12 +530,11 @@ public class App {
      * Permet de saisir la note pour une évaluation spécifique d'un étudiant.
      */
     private static void saisirNotesDuneEvaluationDunEtudiant() {
-        // TODO : à implémenter le code est complete, donnee par l'enseignante
         int posEtudiant = Validations.validerCodeEtudiant(etudiants);
         int posEval = Validations.validerNumEval(nbrEvals);
         float noteEtudiant = Validations.validerNote(evals[posEval-1]);
 
-        notes[posEtudiant][posEval] = noteEtudiant;
+        notes[posEtudiant][posEval-1] = noteEtudiant;
     }
 
 }

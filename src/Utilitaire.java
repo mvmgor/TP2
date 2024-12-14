@@ -80,10 +80,10 @@ public class Utilitaire {
     }
 
     public static String genererCodeEtudiant(String nom, String prenom) {
-        String partie1 = nom.substring(0,3).toUpperCase();
-        String partie2 = prenom.substring(0,1).toUpperCase();
+        String partie1 = nom.substring(0,3).toUpperCase();//prend les 3 premieres lettre du nom
+        String partie2 = prenom.substring(0,1).toUpperCase();//prend la premiere lettre du prenom
 
-        int random = (int) (Math.random() * 10000);
+        int random = (int) (Math.random() * 10000);//genere jusqu'a 99999
         String partie3 = Integer.toString(random);
 
         while(partie3.length() < 5){ // ajout des 0 si le nombre est < 5
@@ -108,7 +108,7 @@ public class Utilitaire {
         for (String element : liste){
             elements += element + " ";
         }
-        return elements.trim();
+        return elements.trim();// retourne un string chaque element de la liste avec un espace " "
     }
 
     public static float[] parseStringListToFloatList(String[] liste) throws NumberFormatException {
@@ -125,11 +125,11 @@ public class Utilitaire {
 
     public static String recupererNomComplet(String[][] etudiants, int posEtudiant) {
 
-        String nom = etudiants[posEtudiant][0];
+        String nom = etudiants[posEtudiant][0];// la premiere dimension est la position de l'etudiant et le tableau de 3 cellules contient le nom,prenom et code
         String prenom = etudiants[posEtudiant][1];
         String code = etudiants[posEtudiant][2];
 
-        String info = String.format("%s %s %s",nom, prenom,code);
+        String info = String.format("%s %s %s",nom, prenom,code);//formatage
 
         return info;
     }
@@ -150,11 +150,10 @@ public class Utilitaire {
         String chemin = "TP2/doc/Rapports_option10/";
 
         try {
-            File fichier = new File(chemin + nomFichier);
-
+            File fichier = new File(chemin + nomFichier);// creer le fichier dans le chemin indique
             FileWriter myWriter = new FileWriter(nomFichier); // creer le writer
-            myWriter.write(contenu);
-            myWriter.close();
+            myWriter.write(contenu);// ecrit le contenu donnee
+            myWriter.close();// ferme le writter
             System.out.printf("Le fichier %s à compilé avec succès!\n",nomFichier);
         } catch (IOException e) {
             System.out.printf("Un erreur est survenu lors de la compilation du fichier %s",nomFichier);
